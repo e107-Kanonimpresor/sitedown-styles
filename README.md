@@ -7,6 +7,14 @@ Professional maintenance page templates for e107 CMS with 8 unique designs for d
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-purple)
 ![License](https://img.shields.io/badge/license-GPL--3.0-orange)
 
+#### Choose your language below / Elija su idioma abajo / Escolha o seu idioma abaixo
+
+[![Language-English](https://img.shields.io/badge/Language-English-blue)](README.md)
+[![Language-Português](https://img.shields.io/badge/Language-Português-green)](README.pt-PT.md)
+[![Language-Español](https://img.shields.io/badge/Language-Español-red)](README.es-ES.md)
+
+---
+
 > **v2.0.0 — Master template architecture.** All 8 skins share a single semantic skeleton (`templates/sitedown_styles_template.php`) and are styled through `css/<skin>.css`. Per-skin texts can be customised from the admin **Texts** page without editing code or language files. See [`CHANGELOG.md`](CHANGELOG.md) for full details.
 
 ## 🎨 Available Templates

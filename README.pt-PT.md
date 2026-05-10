@@ -2,12 +2,18 @@
 
 Modelos profissionais de página de manutenção para e107 CMS com 8 designs únicos para diferentes nichos de negócio.
 
-![Versão](https://img.shields.io/badge/version-1.1-blue)
+![Versão](https://img.shields.io/badge/version-2.0.0-blue)
 ![e107](https://img.shields.io/badge/e107-2.3%2B-green)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-purple)
 ![Licença](https://img.shields.io/badge/license-GPL--3.0-orange)
 
-> 🌐 Também disponível em: [English](README.md) · [Español](README.es-ES.md)
+#### Escolha o seu idioma abaixo / Choose your language below / Elija su idioma abajo
+
+[![Language-English](https://img.shields.io/badge/Language-English-blue)](README.md)
+[![Language-Português](https://img.shields.io/badge/Language-Português-green)](README.pt-PT.md)
+[![Language-Español](https://img.shields.io/badge/Language-Español-red)](README.es-ES.md)
+
+---
 
 ## 🎨 Modelos disponíveis
 

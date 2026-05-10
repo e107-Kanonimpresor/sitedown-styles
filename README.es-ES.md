@@ -2,12 +2,18 @@
 
 Plantillas profesionales de página de mantenimiento para e107 CMS con 8 diseños únicos para diferentes sectores de negocio.
 
-![Versión](https://img.shields.io/badge/version-1.1-blue)
+![Versión](https://img.shields.io/badge/version-2.0.0-blue)
 ![e107](https://img.shields.io/badge/e107-2.3%2B-green)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-purple)
 ![Licencia](https://img.shields.io/badge/license-GPL--3.0-orange)
 
-> 🌐 Disponible también en: [English](README.md) · [Português (PT)](README.pt-PT.md)
+#### Elija su idioma abajo / Choose your language below / Escolha o seu idioma abaixo
+
+[![Language-English](https://img.shields.io/badge/Language-English-blue)](README.md)
+[![Language-Português](https://img.shields.io/badge/Language-Português-green)](README.pt-PT.md)
+[![Language-Español](https://img.shields.io/badge/Language-Español-red)](README.es-ES.md)
+
+---
 
 ## 🎨 Plantillas disponibles
 
