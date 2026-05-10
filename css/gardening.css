@@ -1,0 +1,282 @@
+/*
+ * Sitedown Styles — Gardening skin
+ * Natural / organic design for landscapers and garden centers.
+ * White card with green gradient header strip + circular logo halo,
+ * cream background with floating leaf icons.
+ *
+ * Extracted from legacy templates/gardening_template.php (v1.x).
+ *
+ * @package sitedown_styles
+ * @since   2.0.0
+ */
+
+.ss--gardening {
+    --ss-bg: #fefce8;
+    --ss-bg-alt: #ffffff;
+    --ss-fg: #14532d;
+    --ss-fg-muted: #4d7c0f;
+    --ss-accent: #16a34a;
+    --ss-accent-2: #84cc16;
+    --ss-accent-light: #22c55e;
+    --ss-cream-soft: #ecfccb;
+    --ss-card-bg: #ffffff;
+    --ss-card-border: transparent;
+    --ss-radius: 30px;
+    --ss-radius-sm: 50px;
+    --ss-font: "Nunito", system-ui, sans-serif;
+    --ss-font-display: "Cormorant Garamond", Georgia, serif;
+}
+
+body.ss.ss--gardening {
+    background: var(--ss-bg);
+    color: var(--ss-fg);
+    font-family: var(--ss-font);
+}
+
+/* ===== Background decor (floating leaves) ==================== */
+.ss-bg--garden {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+.ss-leaf {
+    position: absolute;
+    font-size: 4rem;
+    color: var(--ss-accent);
+    opacity: 0.1;
+    animation: ss-sway 5s ease-in-out infinite;
+}
+.ss-leaf-1 { top: 10%;    left: 5%;   animation-delay: 0s; }
+.ss-leaf-2 { top: 30%;    right: 8%;  animation-delay: -1s; transform: rotate(45deg); }
+.ss-leaf-3 { bottom: 20%; left: 10%;  animation-delay: -2s; transform: rotate(-30deg); }
+.ss-leaf-4 { bottom: 30%; right: 5%;  animation-delay: -3s; }
+.ss-leaf-5 { top: 50%;    left: 3%;   animation-delay: -4s; transform: rotate(60deg); }
+@keyframes ss-sway {
+    0%, 100% { transform: rotate(0deg) translateX(0); }
+    50%      { transform: rotate(5deg) translateX(10px); }
+}
+
+/* ===== Stage / card ========================================== */
+.ss--gardening .ss-stage {
+    position: relative;
+    z-index: 1;
+    padding: clamp(16px, 3vh, 60px) 20px;
+}
+.ss--gardening .ss-card {
+    background: var(--ss-card-bg);
+    border: none;
+    border-radius: var(--ss-radius);
+    box-shadow: 0 25px 80px rgba(22, 163, 74, 0.1);
+    max-width: 1000px;
+    padding: 0;
+    overflow: hidden;
+}
+
+/* ===== Header: green gradient strip with floating circle ==== */
+.ss--gardening .ss-header {
+    background: linear-gradient(135deg, var(--ss-accent), var(--ss-accent-2));
+    padding: clamp(16px, 2.5vh, 32px);
+    margin: 0;
+    text-align: center;
+    position: relative;
+    border: none;
+}
+.ss--gardening .ss-logo {
+    width: 100px;
+    height: 100px;
+    background: #fff;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ss-accent);
+    font-size: 2.5rem;
+    position: relative;
+}
+.ss--gardening .ss-logo::before {
+    content: "";
+    position: absolute;
+    inset: -8px;
+    border: 2px dashed rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    animation: ss-rotate-border 20s linear infinite;
+}
+.ss--gardening .ss-logo img { max-height: 60px; border-radius: 50%; }
+@keyframes ss-rotate-border {
+    to { transform: rotate(360deg); }
+}
+
+/* ===== Main: 2-col body ====================================== */
+.ss--gardening .ss-main {
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(20px, 3vw, 40px);
+    padding: clamp(20px, 3vh, 40px) clamp(20px, 3vw, 40px);
+    align-items: center;
+}
+.ss--gardening .ss-left { text-align: left; align-items: stretch; }
+.ss--gardening .ss-right { align-items: stretch; }
+
+/* ===== Badge ================================================= */
+.ss--gardening .ss-badge {
+    background: var(--ss-cream-soft);
+    border: none;
+    color: var(--ss-accent);
+    padding: 10px 24px;
+    border-radius: 50px;
+    font-weight: 600;
+    align-self: flex-start;
+}
+.ss--gardening .ss-badge i { color: var(--ss-accent); animation: none; }
+
+/* ===== Title ================================================= */
+.ss--gardening .ss-title {
+    font-family: var(--ss-font-display);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 600;
+    color: var(--ss-fg);
+    line-height: 1.2;
+}
+.ss--gardening .ss-title .ss-accent {
+    background: none;
+    -webkit-text-fill-color: currentColor;
+    color: var(--ss-accent);
+    font-style: italic;
+}
+
+/* ===== Description =========================================== */
+.ss--gardening .ss-description {
+    color: var(--ss-fg-muted);
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+/* ===== Services (features block) ============================ */
+.ss-services {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.ss-service-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--ss-fg-muted);
+}
+.ss-service-item i {
+    width: 36px;
+    height: 36px;
+    background: var(--ss-cream-soft);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ss-accent);
+}
+
+/* ===== Countdown: green gradient panel ====================== */
+.ss--gardening .ss-countdown-wrap {
+    background: linear-gradient(135deg, var(--ss-accent), var(--ss-accent-2));
+    border-radius: 20px;
+    padding: clamp(16px, 2.5vh, 30px);
+}
+.ss--gardening .ss-countdown-label {
+    font-family: var(--ss-font-display);
+    font-size: 1rem;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 16px;
+}
+.ss--gardening .ss-countdown { gap: 20px; }
+.ss--gardening .ss-countdown-item {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: none;
+    border-radius: 12px;
+    padding: 15px 20px;
+    min-width: 70px;
+}
+.ss--gardening .ss-countdown-value {
+    font-family: var(--ss-font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fff;
+}
+.ss--gardening .ss-countdown-unit {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ===== Newsletter ============================================ */
+.ss--gardening .ss-newsletter-title { color: var(--ss-fg-muted); }
+.ss--gardening .ss-input {
+    background: #f7fee7;
+    border: 2px solid #d9f99d;
+    color: var(--ss-fg);
+    border-radius: 50px;
+    padding: 16px 24px;
+}
+.ss--gardening .ss-input:focus {
+    border-color: var(--ss-accent);
+    box-shadow: none;
+}
+.ss--gardening .ss-btn {
+    background: var(--ss-accent);
+    border-radius: 50px;
+    padding: 16px 36px;
+    font-weight: 700;
+}
+.ss--gardening .ss-btn:hover {
+    background: var(--ss-accent-light);
+    transform: translateY(-2px);
+    box-shadow: none;
+}
+
+/* ===== Contact =============================================== */
+.ss--gardening .ss-contact { gap: 30px; flex-wrap: wrap; }
+.ss--gardening .ss-contact a {
+    color: var(--ss-fg-muted);
+    background: transparent;
+    padding: 0;
+}
+.ss--gardening .ss-contact a:hover { color: var(--ss-accent); background: transparent; }
+.ss--gardening .ss-contact i { color: var(--ss-accent); }
+
+/* ===== Footer / social ======================================= */
+.ss--gardening .ss-footer {
+    border-top: 1px solid var(--ss-cream-soft);
+    background: transparent;
+    padding: clamp(14px, 2vh, 22px) clamp(20px, 3vw, 40px);
+}
+.ss--gardening .ss-social a {
+    background: var(--ss-cream-soft);
+    border-color: transparent;
+    color: var(--ss-accent);
+}
+.ss--gardening .ss-social a:hover {
+    background: var(--ss-accent);
+    color: #fff;
+}
+.ss--gardening .ss-quote {
+    color: var(--ss-fg-muted);
+    font-family: var(--ss-font-display);
+    font-style: italic;
+}
+
+/* ===== Responsive ============================================ */
+@media (max-width: 768px) {
+    .ss--gardening .ss-main { grid-template-columns: 1fr; text-align: center; }
+    .ss--gardening .ss-left { text-align: center; align-items: center; }
+    .ss--gardening .ss-badge { align-self: center; }
+    .ss-services { justify-content: center; }
+}
+@media (max-width: 576px) {
+    .ss--gardening .ss-main { padding: 24px 20px; }
+    .ss--gardening .ss-countdown { flex-wrap: wrap; }
+    .ss--gardening .ss-countdown-item { flex: 0 0 40%; }
+    .ss-services { flex-direction: column; align-items: center; }
+}

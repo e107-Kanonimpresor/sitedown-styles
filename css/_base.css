@@ -1,0 +1,372 @@
+/*
+ * Sitedown Styles — Base layer (shared by all skins)
+ *
+ * Loaded BEFORE the active skin CSS by the master template.
+ * Owns: reset, no-scroll viewport, semantic layout, common widgets
+ *       (countdown, newsletter form, social row), responsive breakpoints.
+ *
+ * Each skin (css/agency.css, css/restaurant.css, ...) overrides:
+ *   --ss-* CSS variables, fonts, decorations, layout fine-tuning.
+ *
+ * @package sitedown_styles
+ * @since   2.0.0 (master template architecture)
+ */
+
+/* ==== Reset ==================================================== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; }
+
+/* ==== Default skin variables (skins override these) ============= */
+:root {
+    --ss-bg: #0f0f1a;
+    --ss-bg-alt: #050508;
+    --ss-fg: #f8fafc;
+    --ss-fg-muted: #94a3b8;
+    --ss-accent: #7c3aed;
+    --ss-accent-2: #06b6d4;
+    --ss-card-bg: rgba(255, 255, 255, 0.05);
+    --ss-card-border: rgba(255, 255, 255, 0.10);
+    --ss-radius: 24px;
+    --ss-radius-sm: 12px;
+    --ss-font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --ss-font-display: var(--ss-font);
+    --ss-pad-y: clamp(16px, 3vh, 48px);
+    --ss-pad-x: clamp(20px, 4vw, 56px);
+    --ss-gap: clamp(14px, 2vh, 28px);
+}
+
+/* ==== Body / scrollable hero viewport ==========================
+ * Strategy: never lock overflow on <html>/<body>. The page is always
+ * scrollable when content exceeds the viewport (mobile, tablet, zoom,
+ * extra-large fonts, etc.). The "hero" centering is achieved through
+ * `min-height: 100vh` on .ss-stage instead of a hard height clamp. */
+html, body.ss {
+    min-height: 100vh;
+    height: auto;
+}
+body.ss {
+    font-family: var(--ss-font);
+    background: var(--ss-bg);
+    color: var(--ss-fg);
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+/* ==== Stage (full viewport flex centering, scrolls naturally) == */
+.ss-stage {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(12px, 2vh, 32px) clamp(16px, 3vw, 32px);
+}
+
+/* ==== Card (the main content surface) ==========================
+ * No max-height: the card grows with its content and the page
+ * scrolls if needed. */
+.ss-card {
+    background: var(--ss-card-bg);
+    border: 1px solid var(--ss-card-border);
+    border-radius: var(--ss-radius);
+    padding: var(--ss-pad-y) var(--ss-pad-x);
+    width: 100%;
+    max-width: 1100px;
+    position: relative;
+}
+
+/* ==== Header (logo / brand) ==================================== */
+.ss-header {
+    text-align: center;
+    margin-bottom: var(--ss-gap);
+}
+.ss-logo { font-size: clamp(1.4rem, 2.5vw, 2rem); font-weight: 700; }
+.ss-logo img { max-height: clamp(120px, 22vh, 240px); width: auto; }
+
+/* ==== Main: 2-col grid by default, single column on mobile ===== */
+.ss-main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(20px, 3vw, 50px);
+    align-items: center;
+    margin-bottom: var(--ss-gap);
+}
+.ss-left,
+.ss-right {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ss-gap);
+}
+.ss-left  { text-align: left; }
+.ss-right { text-align: left; }
+
+/* Layout modifiers (skins/server-side toggles) */
+.ss-main--single { grid-template-columns: 1fr; max-width: 720px; margin-left: auto; margin-right: auto; }
+.ss-main--single .ss-left,
+.ss-main--single .ss-right { text-align: center; align-items: center; }
+.ss-main--hero { grid-template-columns: 1.2fr 1fr; }
+
+/* ==== Badge ==================================================== */
+.ss-badge {
+    display: inline-flex;
+    align-self: flex-start;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 18px;
+    background: rgba(124, 58, 237, 0.15);
+    border: 1px solid rgba(124, 58, 237, 0.3);
+    border-radius: 999px;
+    color: var(--ss-accent);
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+.ss-badge i { font-size: 0.65rem; animation: ss-pulse 2s infinite; }
+@keyframes ss-pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+/* ==== Title + description ====================================== */
+.ss-title {
+    font-family: var(--ss-font-display);
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 700;
+    line-height: 1.2;
+}
+.ss-title .ss-line { display: block; }
+.ss-title .ss-accent {
+    background: linear-gradient(135deg, var(--ss-accent), var(--ss-accent-2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.ss-description {
+    font-size: 1rem;
+    color: var(--ss-fg-muted);
+    line-height: 1.6;
+}
+
+/* ==== Countdown ================================================ */
+.ss-countdown {
+    display: flex;
+    gap: clamp(8px, 1.5vw, 18px);
+    flex-wrap: wrap;
+}
+.ss-countdown-label {
+    width: 100%;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--ss-fg-muted);
+    margin-bottom: 4px;
+}
+.ss-countdown-item {
+    flex: 1;
+    min-width: 70px;
+    background: rgba(124, 58, 237, 0.1);
+    border: 1px solid rgba(124, 58, 237, 0.2);
+    border-radius: var(--ss-radius-sm);
+    padding: clamp(10px, 1.6vh, 18px) clamp(10px, 1.5vw, 20px);
+    text-align: center;
+}
+.ss-countdown-value {
+    font-size: clamp(1.6rem, 3vw, 2rem);
+    font-weight: 700;
+    line-height: 1;
+}
+.ss-countdown-unit {
+    font-size: 0.7rem;
+    color: var(--ss-fg-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 4px;
+}
+
+/* ==== Newsletter form ========================================== */
+.ss-newsletter { display: flex; flex-direction: column; gap: 8px; }
+.ss-newsletter-title { font-size: 0.95rem; color: var(--ss-fg-muted); }
+.ss-newsletter-form { display: flex; gap: 10px; }
+.ss-input {
+    flex: 1;
+    padding: 14px 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--ss-card-border);
+    border-radius: var(--ss-radius-sm);
+    color: var(--ss-fg);
+    font-family: inherit;
+    font-size: 1rem;
+    transition: border-color .2s, box-shadow .2s;
+}
+.ss-input:focus {
+    outline: none;
+    border-color: var(--ss-accent);
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
+}
+.ss-input::placeholder { color: var(--ss-fg-muted); }
+.ss-btn {
+    padding: 14px 28px;
+    background: linear-gradient(135deg, var(--ss-accent), var(--ss-accent-2));
+    border: none;
+    border-radius: var(--ss-radius-sm);
+    color: #fff;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform .2s, box-shadow .2s;
+    white-space: nowrap;
+}
+.ss-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(124, 58, 237, 0.35);
+}
+
+/* ==== Contact row (phone / email) ============================== */
+.ss-contact { display: flex; flex-wrap: wrap; gap: 18px; }
+.ss-contact a {
+    color: var(--ss-fg);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+}
+.ss-contact a:hover { color: var(--ss-accent); }
+.ss-contact i { color: var(--ss-accent); }
+
+/* ==== Footer (social + quote) ================================== */
+.ss-footer {
+    text-align: center;
+    border-top: 1px solid var(--ss-card-border);
+    padding-top: var(--ss-gap);
+}
+.ss-social {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: clamp(14px, 2vw, 22px);
+    margin-bottom: 10px;
+}
+.ss-social a {
+    width: 52px;
+    height: 52px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--ss-card-border);
+    border-radius: var(--ss-radius-sm);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ss-fg-muted);
+    font-size: 1.4rem;
+    text-decoration: none;
+    transition: all .2s;
+}
+.ss-social a:hover {
+    background: var(--ss-accent);
+    border-color: var(--ss-accent);
+    color: #fff;
+    transform: translateY(-2px);
+}
+.ss-quote {
+    font-size: 0.85rem;
+    color: var(--ss-fg-muted);
+    font-style: italic;
+}
+
+/* ==== Empty / hidden block helpers ============================= */
+.ss-block:empty { display: none; }
+
+/* ==== Shared widget skeletons (skins override colors only) ===== */
+
+/* Services row (gardening pattern: inline icon chips) */
+.ss-services {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+}
+.ss-service-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Services grid (handyman/construction pattern: 2x2 cards) */
+.ss-services-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+.ss-services-grid--compact { gap: 12px; }
+.ss-service-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 14px;
+    background: var(--ss-card-bg);
+    border-radius: var(--ss-radius-sm);
+}
+.ss-service-card-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--ss-accent);
+}
+.ss-service-card-name { font-weight: 600; font-size: 0.95rem; }
+
+/* Metrics row (marketing) */
+.ss-metrics { display: flex; flex-wrap: wrap; gap: 24px; }
+.ss-metric { text-align: center; }
+.ss-metric-value { font-size: 2.2rem; font-weight: 700; line-height: 1.1; color: var(--ss-accent); }
+.ss-metric-label { font-size: 0.78rem; color: var(--ss-fg-muted); text-transform: uppercase; letter-spacing: 1px; }
+
+/* Dashboard header / chart / stats (marketing) */
+.ss-dash-header { display: flex; justify-content: space-between; align-items: center; }
+.ss-dash-title  { font-size: 1rem; font-weight: 600; }
+.ss-dash-badge  { padding: 6px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; background: rgba(16,185,129,0.1); color: #10b981; }
+.ss-chart-section { background: var(--ss-bg-alt, var(--ss-bg)); border: 1px solid var(--ss-card-border); border-radius: var(--ss-radius-sm); padding: 16px; }
+.ss-chart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.ss-chart-title  { font-size: 0.85rem; font-weight: 600; }
+.ss-chart-value  { font-size: 0.9rem; font-weight: 600; color: var(--ss-accent); }
+.ss-chart-bars   { display: flex; align-items: flex-end; gap: 8px; height: 70px; }
+.ss-chart-bar    { flex: 1; background: var(--ss-accent); border-radius: 4px 4px 0 0; }
+.ss-stats-row    { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.ss-stat-card    { background: var(--ss-bg-alt, var(--ss-bg)); border: 1px solid var(--ss-card-border); border-radius: var(--ss-radius-sm); padding: 14px; text-align: center; }
+.ss-stat-icon    { font-size: 1.2rem; color: var(--ss-accent); margin-bottom: 6px; }
+.ss-stat-value   { font-size: 1.1rem; font-weight: 700; }
+.ss-stat-label   { font-size: 0.7rem; color: var(--ss-fg-muted); text-transform: uppercase; letter-spacing: 1px; }
+
+/* Progress bar (handyman/construction) */
+.ss-progress { width: 100%; }
+.ss-progress-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.ss-progress-label  { font-size: 0.85rem; color: var(--ss-fg-muted); text-transform: uppercase; letter-spacing: 1px; }
+.ss-progress-value  { font-weight: 700; color: var(--ss-accent); }
+.ss-progress-track  { height: 10px; background: var(--ss-bg-alt, rgba(255,255,255,0.05)); border-radius: 5px; overflow: hidden; }
+.ss-progress-fill   { height: 100%; background: var(--ss-accent); border-radius: 5px; transition: width 0.6s ease; }
+
+/* Emergency box (construction) */
+.ss-emerg-box { padding: 22px; border-radius: var(--ss-radius-sm); text-align: center; background: var(--ss-accent); color: #fff; }
+.ss-emerg-box-title { font-weight: 700; text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem; margin: 0 0 8px; }
+.ss-emerg-box-phone { font-size: 1.6rem; font-weight: 800; margin: 0; }
+.ss-emerg-box-phone a { color: inherit; text-decoration: none; }
+
+/* ==== Responsive: collapse to single column ==================== */
+@media (max-width: 768px) {
+    .ss-main {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    .ss-left, .ss-right { text-align: center; align-items: center; }
+    .ss-badge { align-self: center; }
+    .ss-contact { justify-content: center; }
+    .ss-newsletter-form { flex-direction: column; }
+}
+
+@media (max-width: 480px) {
+    .ss-card { border-radius: 16px; }
+    .ss-countdown-item { min-width: 60px; padding: 10px 8px; }
+}

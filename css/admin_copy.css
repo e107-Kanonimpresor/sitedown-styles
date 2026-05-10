@@ -1,0 +1,58 @@
+/* =========================================================================
+ * Sitedown Styles — Admin Copy Editor
+ * Skin tabs + per-field override table (with multilang status badges).
+ * Editing language is driven by e107's top admin language switcher.
+ * Loaded by sitedown_styles_adminArea::copyPage().
+ * ========================================================================= */
+
+.sd-copy-skins .nav-link {
+    font-weight: 500;
+}
+
+/* ---------- edit table ---------- */
+
+.sd-copy-table .sd-col-field    { width: 22%; }
+.sd-copy-table .sd-col-default  { width: 30%; }
+.sd-copy-table .sd-col-override { width: 38%; }
+.sd-copy-table .sd-col-langs    { width: 10%; text-align: center; }
+
+.sd-copy-table code {
+    font-size: 0.85rem;
+    color: #be185d;
+    background: #fdf2f8;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.sd-copy-table textarea,
+.sd-copy-table input.form-control {
+    font-family: inherit;
+}
+
+/* ---------- per-row language badges ---------- */
+
+.sd-cell-langs {
+    vertical-align: middle;
+}
+
+.sd-lang-badge {
+    display: inline-block;
+    margin: 2px;
+    padding: 3px 7px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    border-radius: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    cursor: help;
+}
+
+.sd-lang-badge.sd-lang-has {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.sd-lang-badge.sd-lang-missing {
+    background: #f3f4f6;
+    color: #9ca3af;
+}

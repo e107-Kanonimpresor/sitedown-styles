@@ -1,0 +1,385 @@
+/*
+ * Sitedown Styles — Marketing skin
+ * Tech / growth-agency dark theme: animated grid, blue+purple glows,
+ * data streams, dashboard widget on the right with chart bars and stats.
+ *
+ * Extracted from legacy templates/marketing_template.php (v1.x).
+ *
+ * @package sitedown_styles
+ * @since   2.0.0
+ */
+
+.ss--marketing {
+    --ss-bg: #020617;
+    --ss-bg-alt: #0f172a;
+    --ss-fg: #f1f5f9;
+    --ss-fg-muted: #94a3b8;
+    --ss-accent: #0ea5e9;
+    --ss-accent-2: #6366f1;
+    --ss-accent-3: #10b981;
+    --ss-card-bg: #1e293b;
+    --ss-card-border: rgba(255, 255, 255, 0.1);
+    --ss-radius: 24px;
+    --ss-radius-sm: 12px;
+    --ss-font: "Inter", system-ui, sans-serif;
+    --ss-font-display: "Inter", system-ui, sans-serif;
+}
+
+body.ss.ss--marketing {
+    background: var(--ss-bg);
+    color: var(--ss-fg);
+}
+
+/* ===== Background decor (data streams + grid + glows) ========= */
+.ss-bg--marketing {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+}
+.ss-bg-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(14, 165, 233, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(14, 165, 233, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    -webkit-mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
+            mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
+}
+.ss-bg-glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.4;
+}
+.ss-bg-glow-1 { top: -200px; left: -100px; background: var(--ss-accent); }
+.ss-bg-glow-2 { bottom: -200px; right: -100px; background: var(--ss-accent-2); }
+.ss-data-stream {
+    position: absolute;
+    top: 0;
+    width: 2px;
+    height: 100%;
+    opacity: 0.1;
+}
+.ss-data-stream::before {
+    content: "";
+    position: absolute;
+    top: -100%;
+    width: 100%;
+    height: 200px;
+    background: linear-gradient(180deg, transparent, var(--ss-accent), transparent);
+    animation: ss-stream 3s linear infinite;
+}
+.ss-data-stream:nth-child(2) { left: 10%; }
+.ss-data-stream:nth-child(3) { left: 25%; animation-delay: 0.5s; }
+.ss-data-stream:nth-child(4) { left: 40%; animation-delay: 1s; }
+.ss-data-stream:nth-child(5) { left: 60%; animation-delay: 1.5s; }
+.ss-data-stream:nth-child(6) { left: 75%; animation-delay: 2s; }
+.ss-data-stream:nth-child(7) { left: 90%; animation-delay: 2.5s; }
+@keyframes ss-stream {
+    0%   { top: -100%; }
+    100% { top: 100%; }
+}
+
+/* ===== Stage / card transparente sobre el bg ================== */
+.ss--marketing .ss-stage {
+    position: relative;
+    z-index: 1;
+    padding: clamp(16px, 3vh, 40px) 20px;
+}
+.ss--marketing .ss-card {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    max-width: 1100px;
+    padding: 0;
+    position: relative;          /* anchor for absolutely-positioned header */
+}
+
+/* ===== Header (logo + status pill via badge fallback) =========
+ * Anchored INSIDE the left column of .ss-main (above the badge).
+ * `.ss-main` reserves vertical space via `padding-top` so the header
+ * never overlaps the badge. Removed from normal flow so the dashboard
+ * panel on the right can start at the very top of .ss-main. */
+.ss--marketing .ss-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: calc(50% - 20px);     /* same as left column width */
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    z-index: 2;
+}
+.ss--marketing .ss-logo {
+    color: var(--ss-fg);
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+/* Reserve room for the absolutely-positioned header. */
+.ss--marketing .ss-main {
+    padding-top: clamp(48px, 7vh, 80px);
+}
+
+/* ===== Main: 2 columns (left = pitch, right = dashboard) ===== */
+.ss--marketing .ss-main {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+}
+.ss--marketing .ss-left { text-align: left; align-items: stretch; }
+.ss--marketing .ss-right {
+    background: var(--ss-card-bg);
+    border: 1px solid var(--ss-card-border);
+    border-radius: var(--ss-radius);
+    padding: clamp(16px, 2.5vh, 30px);
+    position: relative;
+    overflow: hidden;
+}
+.ss--marketing .ss-right::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--ss-accent), transparent);
+}
+
+/* ===== Badge: tech-style chip ================================ */
+.ss--marketing .ss-badge {
+    background: rgba(14, 165, 233, 0.1);
+    border: 1px solid rgba(14, 165, 233, 0.2);
+    color: var(--ss-accent);
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    align-self: flex-start;
+}
+.ss--marketing .ss-badge i { color: var(--ss-accent); animation: none; }
+
+/* ===== Title ================================================= */
+.ss--marketing .ss-title {
+    color: var(--ss-fg);
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
+    font-weight: 800;
+    line-height: 1.1;
+}
+.ss--marketing .ss-title .ss-accent {
+    background: linear-gradient(135deg, var(--ss-accent), var(--ss-accent-2));
+    -webkit-background-clip: text;
+            background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+/* ===== Description =========================================== */
+.ss--marketing .ss-description {
+    color: var(--ss-fg-muted);
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+/* ===== Features = metrics row ================================ */
+.ss-metrics {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+.ss-metric { text-align: center; }
+.ss-metric-value {
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--ss-accent), var(--ss-accent-3));
+    -webkit-background-clip: text;
+            background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    line-height: 1.1;
+}
+.ss-metric-label {
+    font-size: 0.8rem;
+    color: var(--ss-fg-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 4px;
+}
+
+/* ===== Dashboard header (extra block) ======================== */
+.ss-dash-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: clamp(14px, 2vh, 22px);
+}
+.ss-dash-title { font-size: 1rem; font-weight: 600; color: var(--ss-fg); }
+.ss-dash-badge {
+    padding: 6px 12px;
+    background: rgba(16, 185, 129, 0.1);
+    border-radius: 6px;
+    font-size: 0.75rem;
+    color: var(--ss-accent-3);
+    font-weight: 600;
+}
+
+/* Move dashboard header to the very top of right column.       */
+.ss--marketing .ss-right { display: flex; flex-direction: column; }
+.ss--marketing .ss-right .ss-block:has(.ss-dash-header) { order: -1; }
+
+/* ===== Countdown override (dashboard look) =================== */
+.ss--marketing .ss-countdown-wrap { background: transparent; padding: 0; }
+.ss--marketing .ss-countdown-label {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--ss-fg-muted);
+    font-size: 0.8rem;
+}
+.ss--marketing .ss-countdown { gap: 12px; }
+.ss--marketing .ss-countdown-item {
+    background: var(--ss-bg);
+    border: 1px solid var(--ss-card-border);
+    border-radius: 12px;
+    padding: 16px 8px;
+}
+.ss--marketing .ss-countdown-value {
+    font-size: 1.8rem;
+    color: var(--ss-fg);
+}
+.ss--marketing .ss-countdown-unit {
+    font-size: 0.65rem;
+    color: var(--ss-fg-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ===== Chart section ========================================= */
+.ss-chart-section {
+    background: var(--ss-bg);
+    border-radius: 16px;
+    padding: clamp(12px, 1.8vh, 20px);
+    border: 1px solid var(--ss-card-border);
+    margin-top: clamp(12px, 1.8vh, 20px);
+}
+.ss-chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: clamp(10px, 1.5vh, 18px);
+}
+.ss-chart-title { font-size: 0.85rem; font-weight: 600; color: var(--ss-fg); }
+.ss-chart-value { font-size: 0.9rem; color: var(--ss-accent-3); font-weight: 600; }
+.ss-chart-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    height: clamp(40px, 8vh, 80px);
+}
+.ss-chart-bar {
+    flex: 1;
+    background: linear-gradient(180deg, var(--ss-accent), var(--ss-accent-2));
+    border-radius: 4px 4px 0 0;
+    animation: ss-bar-grow 1s ease-out forwards;
+    transform-origin: bottom;
+    transform: scaleY(0);
+}
+@keyframes ss-bar-grow {
+    from { transform: scaleY(0); }
+    to   { transform: scaleY(1); }
+}
+.ss-chart-bar:nth-child(1) { height: 40%; animation-delay: 0.1s; }
+.ss-chart-bar:nth-child(2) { height: 65%; animation-delay: 0.2s; }
+.ss-chart-bar:nth-child(3) { height: 45%; animation-delay: 0.3s; }
+.ss-chart-bar:nth-child(4) { height: 80%; animation-delay: 0.4s; }
+.ss-chart-bar:nth-child(5) { height: 60%; animation-delay: 0.5s; }
+.ss-chart-bar:nth-child(6) { height: 90%; animation-delay: 0.6s; }
+.ss-chart-bar:nth-child(7) { height: 70%; animation-delay: 0.7s; }
+.ss-chart-bar:nth-child(8) { height: 95%; animation-delay: 0.8s; }
+
+/* ===== Stats row ============================================= */
+.ss-stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: clamp(12px, 1.8vh, 20px);
+}
+.ss-stat-card {
+    background: var(--ss-bg);
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+    border: 1px solid var(--ss-card-border);
+}
+.ss-stat-icon { font-size: 1.2rem; color: var(--ss-accent); margin-bottom: 8px; }
+.ss-stat-value { font-size: 1.2rem; font-weight: 700; color: var(--ss-fg); margin-bottom: 4px; }
+.ss-stat-label { font-size: 0.7rem; color: var(--ss-fg-muted); text-transform: uppercase; letter-spacing: 1px; }
+
+/* ===== Newsletter =========================================== */
+.ss--marketing .ss-newsletter-title { color: var(--ss-fg-muted); }
+.ss--marketing .ss-input {
+    background: var(--ss-card-bg);
+    border: 1px solid var(--ss-card-border);
+    color: var(--ss-fg);
+    padding: 16px 24px;
+    border-radius: 12px;
+}
+.ss--marketing .ss-input::placeholder { color: var(--ss-fg-muted); }
+.ss--marketing .ss-input:focus {
+    border-color: var(--ss-accent);
+    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.2);
+}
+.ss--marketing .ss-btn {
+    background: linear-gradient(135deg, var(--ss-accent), var(--ss-accent-2));
+    border-radius: 12px;
+    padding: 16px 32px;
+    font-weight: 600;
+}
+.ss--marketing .ss-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 40px rgba(14, 165, 233, 0.3);
+}
+
+/* ===== Contact =============================================== */
+.ss--marketing .ss-contact a { color: var(--ss-fg-muted); }
+.ss--marketing .ss-contact a:hover { color: var(--ss-accent); }
+.ss--marketing .ss-contact i { color: var(--ss-accent); }
+
+/* ===== Footer / social ====================================== */
+.ss--marketing .ss-footer { border-top: 1px solid var(--ss-card-border); }
+.ss--marketing .ss-social a {
+    background: var(--ss-card-bg);
+    border-color: var(--ss-card-border);
+    color: var(--ss-fg);
+}
+.ss--marketing .ss-social a:hover {
+    background: linear-gradient(135deg, var(--ss-accent), var(--ss-accent-2));
+    border-color: transparent;
+    color: #fff;
+}
+.ss--marketing .ss-quote { color: var(--ss-fg-muted); }
+
+/* ===== Responsive ============================================ */
+@media (max-width: 992px) {
+    .ss--marketing .ss-stage { padding-top: clamp(28px, 5vh, 56px); }
+    /* Release absolute positioning on mobile so the logo flows
+     * naturally above the content and doesn't clip / block scroll. */
+    .ss--marketing .ss-header {
+        position: static;
+        width: 100%;
+        text-align: center;
+        margin-bottom: clamp(20px, 4vh, 40px);
+    }
+    .ss--marketing .ss-main { padding-top: 0; }
+    .ss--marketing .ss-logo { display: inline-block; }
+    .ss--marketing .ss-main { grid-template-columns: 1fr; gap: 30px; }
+    .ss--marketing .ss-left { text-align: center; align-items: center; }
+    .ss-metrics { justify-content: center; }
+}
+@media (max-width: 576px) {
+    .ss--marketing .ss-countdown { grid-template-columns: repeat(2, 1fr); }
+    .ss-stats-row { grid-template-columns: 1fr; }
+    .ss-data-stream { display: none; }
+}

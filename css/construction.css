@@ -1,0 +1,357 @@
+/*
+ * Sitedown Styles — Construction skin
+ * Industrial bold design for construction companies.
+ * Animated yellow/black hazard stripes top + bottom, Bebas Neue display
+ * font, dark theme with amber accents, services grid + progress + emergency.
+ *
+ * Extracted from legacy templates/construction_template.php (v1.x).
+ *
+ * @package sitedown_styles
+ * @since   2.0.0
+ */
+
+.ss--construction {
+    --ss-bg: #0c0a09;
+    --ss-bg-alt: #1c1917;
+    --ss-fg: #fafaf9;
+    --ss-fg-muted: #78716c;
+    --ss-accent: #f59e0b;
+    --ss-accent-2: #d97706;
+    --ss-accent-3: #ea580c;
+    --ss-card-bg: #1c1917;
+    --ss-card-border: rgba(255, 255, 255, 0.05);
+    --ss-radius: 20px;
+    --ss-radius-sm: 12px;
+    --ss-stripe-h: 20px;
+    --ss-font: "Work Sans", system-ui, sans-serif;
+    --ss-font-display: "Bebas Neue", "Oswald", system-ui, sans-serif;
+}
+
+body.ss.ss--construction {
+    background: var(--ss-bg);
+    color: var(--ss-fg);
+    font-family: var(--ss-font);
+}
+
+/* ===== Hazard stripes (decor, top + bottom) ================== */
+.ss-warning-stripe {
+    position: fixed;
+    left: 0;
+    right: 0;
+    height: var(--ss-stripe-h);
+    background: repeating-linear-gradient(
+        45deg,
+        var(--ss-accent),
+        var(--ss-accent) 20px,
+        var(--ss-bg-alt) 20px,
+        var(--ss-bg-alt) 40px
+    );
+    animation: ss-move-stripes 1s linear infinite;
+    z-index: 2;
+    pointer-events: none;
+}
+.ss-warning-stripe--top    { top: 0; }
+.ss-warning-stripe--bottom { bottom: 0; }
+@keyframes ss-move-stripes {
+    0%   { background-position: 0 0; }
+    100% { background-position: 56px 0; }
+}
+
+/* ===== Stage / card transparente entre las cintas ============ */
+.ss--construction .ss-stage {
+    padding: calc(var(--ss-stripe-h) + clamp(16px, 3vh, 60px)) 20px;
+    align-items: center;
+}
+.ss--construction .ss-card {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    max-width: 1100px;
+    padding: 0;
+}
+
+/* ===== Header (logo Bebas) ==================================
+ * Constrain the header to the visual width of the left column so the
+ * brand sits above the pitch (not above the right-side panel). On
+ * narrow viewports the @media block below releases the cap. */
+.ss--construction .ss-header {
+    text-align: left;
+    margin-bottom: clamp(14px, 2.5vh, 40px);
+    padding: 0;
+    background: transparent;
+    border: none;
+    max-width: calc(50% - clamp(20px, 3vw, 60px) / 2);
+}
+.ss--construction .ss-logo {
+    font-family: var(--ss-font-display);
+    font-size: 2.5rem;
+    letter-spacing: 3px;
+    color: var(--ss-accent);
+}
+.ss--construction .ss-logo img { max-height: 50px; }
+
+/* ===== Main grid: 2 cols (left content + right card) ======= */
+.ss--construction .ss-main {
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(20px, 3vw, 60px);
+    align-items: center;
+}
+.ss--construction .ss-left { text-align: left; align-items: stretch; }
+.ss--construction .ss-right {
+    background: var(--ss-bg-alt);
+    border-radius: var(--ss-radius);
+    padding: clamp(20px, 3vh, 40px);
+    position: relative;
+    overflow: hidden;
+}
+.ss--construction .ss-right::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--ss-accent), var(--ss-accent-3));
+}
+
+/* ===== Badge =============================================== */
+.ss--construction .ss-badge {
+    background: var(--ss-accent);
+    border: none;
+    color: var(--ss-bg-alt);
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.85rem;
+    align-self: flex-start;
+}
+.ss--construction .ss-badge i { color: var(--ss-bg-alt); animation: none; }
+
+/* ===== Title (3 lines, Bebas, huge) ======================== */
+.ss--construction .ss-title {
+    font-family: var(--ss-font-display);
+    font-size: clamp(3rem, 8vw, 5rem);
+    line-height: 0.95;
+    color: var(--ss-fg);
+    letter-spacing: 1px;
+}
+.ss--construction .ss-title .ss-accent {
+    background: none;
+    -webkit-text-fill-color: currentColor;
+    color: var(--ss-accent);
+}
+
+/* ===== Description ========================================= */
+.ss--construction .ss-description {
+    color: var(--ss-fg-muted);
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+/* ===== Services grid (compact, 4 items 2x2) ================ */
+.ss-services-grid--compact { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+.ss--construction .ss-service-card {
+    border-left: none;
+    background: var(--ss-bg-alt);
+    border-radius: 8px;
+    padding: 15px;
+    gap: 12px;
+}
+.ss--construction .ss-service-card-icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(245, 158, 11, 0.15);
+    border-radius: 8px;
+    color: var(--ss-accent);
+    font-size: 1.05rem;
+}
+.ss--construction .ss-service-card-name {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--ss-fg);
+}
+
+/* ===== Right card: countdown title centered ================ */
+.ss--construction .ss-countdown-wrap {
+    background: transparent;
+    padding: 0;
+    text-align: center;
+}
+.ss--construction .ss-countdown-label {
+    font-family: var(--ss-font-display);
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    margin-bottom: clamp(14px, 2.5vh, 30px);
+    color: var(--ss-fg);
+    text-align: center;
+    text-transform: uppercase;
+}
+.ss--construction .ss-countdown { gap: 15px; }
+.ss--construction .ss-countdown-item {
+    background: var(--ss-bg);
+    border: none;
+    border-radius: 12px;
+    padding: clamp(12px, 1.8vh, 20px) 10px;
+}
+.ss--construction .ss-countdown-value {
+    font-family: var(--ss-font-display);
+    font-size: 2.5rem;
+    color: var(--ss-accent);
+}
+.ss--construction .ss-countdown-unit {
+    color: var(--ss-fg-muted);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ===== Progress (extra block, top of right card) =========== */
+.ss--construction .ss-progress {
+    background: var(--ss-bg);
+    border-left: 4px solid var(--ss-accent);
+    padding: clamp(14px, 2vh, 22px) clamp(18px, 2vw, 28px);
+    border-radius: 0 8px 8px 0;
+    margin-bottom: clamp(14px, 2vh, 22px);   /* gap before emergency box */
+}
+.ss--construction .ss-progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.ss--construction .ss-progress-label {
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.85rem;
+    color: var(--ss-fg);
+}
+.ss--construction .ss-progress-value {
+    font-family: var(--ss-font-display);
+    font-size: 1.5rem;
+    color: var(--ss-accent);
+}
+.ss--construction .ss-progress-track {
+    height: 12px;
+    background: var(--ss-bg-alt);
+    border-radius: 6px;
+    overflow: hidden;
+}
+.ss--construction .ss-progress-fill {
+    background: linear-gradient(90deg, var(--ss-accent), var(--ss-accent-3));
+    border-radius: 6px;
+    height: 100%;
+    position: relative;
+    /* Subtle opacity pulse like the original prototype */
+    animation: ss-construction-progress-pulse 2s ease-in-out infinite;
+}
+.ss--construction .ss-progress-fill::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.35) 50%,
+        transparent 100%);
+    animation: ss-construction-shimmer 2s infinite;
+}
+@keyframes ss-construction-progress-pulse {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0.8; }
+}
+@keyframes ss-construction-shimmer {
+    0%   { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* ===== Emergency box (extra block, below progress) ========= */
+.ss-emerg-box {
+    background: var(--ss-accent-3);
+    border-radius: 12px;
+    padding: 25px;
+    text-align: center;
+    color: #fff;
+}
+.ss-emerg-box-title {
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.85rem;
+    margin: 0 0 10px;
+}
+.ss-emerg-box-phone {
+    font-family: var(--ss-font-display);
+    font-size: 2rem;
+    letter-spacing: 2px;
+    margin: 0;
+}
+.ss-emerg-box-phone a { color: #fff; text-decoration: none; }
+.ss-emerg-box-phone a:hover { text-decoration: underline; }
+
+/* ===== Newsletter (right column, secondary) ================ */
+.ss--construction .ss-newsletter-title { color: var(--ss-fg-muted); }
+.ss--construction .ss-input {
+    background: var(--ss-bg);
+    border: 1px solid var(--ss-card-border);
+    color: var(--ss-fg);
+    border-radius: 8px;
+    padding: 14px 18px;
+}
+.ss--construction .ss-input::placeholder { color: var(--ss-fg-muted); }
+.ss--construction .ss-input:focus {
+    border-color: var(--ss-accent);
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
+}
+.ss--construction .ss-btn {
+    background: var(--ss-accent);
+    color: var(--ss-bg-alt);
+    border-radius: 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.ss--construction .ss-btn:hover {
+    background: var(--ss-accent-2);
+    color: var(--ss-bg-alt);
+}
+
+/* ===== Contact ============================================= */
+.ss--construction .ss-contact a {
+    background: var(--ss-bg);
+    color: var(--ss-fg);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-weight: 600;
+}
+.ss--construction .ss-contact a:hover { background: var(--ss-accent); color: var(--ss-bg-alt); }
+.ss--construction .ss-contact i { color: var(--ss-accent); }
+
+/* ===== Footer / social ===================================== */
+.ss--construction .ss-footer {
+    border-top: 1px solid var(--ss-card-border);
+    text-align: left;
+}
+.ss--construction .ss-social { justify-content: flex-start; }
+.ss--construction .ss-social a {
+    background: var(--ss-bg-alt);
+    border-color: transparent;
+    color: var(--ss-fg);
+}
+.ss--construction .ss-social a:hover {
+    background: var(--ss-accent);
+    color: var(--ss-bg-alt);
+}
+.ss--construction .ss-quote { color: var(--ss-fg-muted); }
+
+/* ===== Responsive ========================================== */
+@media (max-width: 992px) {
+    .ss--construction .ss-stage { padding-left: 24px; padding-right: 24px; }
+    .ss--construction .ss-header { max-width: none; text-align: center; }
+    .ss--construction .ss-main { grid-template-columns: 1fr; gap: 40px; }
+    .ss--construction .ss-right { padding: clamp(18px, 4vw, 28px); }
+}
+@media (max-width: 576px) {
+    .ss--construction .ss-stage { padding-left: 18px; padding-right: 18px; }
+    .ss--construction .ss-countdown { grid-template-columns: repeat(2, 1fr); }
+    .ss-services-grid--compact { grid-template-columns: 1fr; }
+}

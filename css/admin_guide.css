@@ -1,0 +1,330 @@
+/**
+ * Sitedown Styles — Admin User Guide stylesheet
+ *
+ * Loaded by sitedown_styles_adminArea::guidePage().
+ * Architecture mirrors the e107 `booking` plugin (canonical reference):
+ *   - All selectors prefixed with .sitedown-styles-guide to avoid collisions.
+ *   - Uses Bootstrap .tab-pane / .table / .alert produced by $frm->tabs().
+ *   - Color palette: #337ab7 (primary), #333 (text), #555 (muted), #fff (cards).
+ */
+
+/* ── User Guide — Base Text Color ── */
+.sitedown-styles-guide .tab-pane {
+	color: #333;
+}
+
+/* ── User Guide — Tab Content ── */
+.sitedown-styles-guide .tab-content {
+	padding: 20px 15px;
+	border: 1px solid #ddd;
+	border-top: 0;
+	border-radius: 0 0 4px 4px;
+	background: #fff;
+}
+
+/* ── User Guide — Headings ── */
+.sitedown-styles-guide .tab-pane h4 {
+	margin-top: 0;
+	color: #333;
+	border-bottom: 2px solid #337ab7;
+	padding-bottom: 8px;
+	margin-bottom: 15px;
+}
+
+.sitedown-styles-guide .tab-pane h5 {
+	color: #555;
+	margin-top: 18px;
+}
+
+/* ── User Guide — Text & Lists ── */
+.sitedown-styles-guide .tab-pane p {
+	line-height: 1.7;
+}
+
+.sitedown-styles-guide .tab-pane ul,
+.sitedown-styles-guide .tab-pane ol {
+	padding-left: 20px;
+}
+
+.sitedown-styles-guide .tab-pane li {
+	margin-bottom: 5px;
+}
+
+/* ── User Guide — Tables ── */
+.sitedown-styles-guide .table {
+	margin-top: 10px;
+	background: #fff;
+	color: #333;
+}
+
+.sitedown-styles-guide .table th,
+.sitedown-styles-guide .table td {
+	color: #333 !important;
+	border-color: #dee2e6 !important;
+}
+
+.sitedown-styles-guide .table th {
+	background: #f5f5f5;
+}
+
+.sitedown-styles-guide .table code {
+	color: #c7254e;
+	background: #f9f2f4;
+}
+
+/* ── User Guide — Alerts ── */
+.sitedown-styles-guide .alert {
+	margin-top: 15px;
+}
+
+/* ── User Guide — Overview Header ── */
+.sitedown-styles-guide .bg-overview-header {
+	background: linear-gradient(135deg, #337ab7 0%, #265d8c 100%);
+	color: #fff;
+	padding: 28px 24px 22px;
+	border-radius: 6px;
+	margin-bottom: 24px;
+}
+
+.sitedown-styles-guide .bg-overview-header h4 {
+	color: #fff;
+	border-bottom-color: rgba(255,255,255,.35);
+	margin-bottom: 10px;
+}
+
+.sitedown-styles-guide .bg-overview-intro {
+	color: rgba(255,255,255,.9);
+	font-size: 14px;
+	margin-bottom: 0;
+}
+
+/* ── User Guide — Flow Bar ── */
+.sitedown-styles-guide .bg-flow-bar {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	padding: 16px 10px;
+	background: #f8f9fa;
+	border: 1px solid #e9ecef;
+	border-radius: 6px;
+	margin-bottom: 28px;
+	flex-wrap: wrap;
+}
+
+.sitedown-styles-guide .bg-flow-step {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.sitedown-styles-guide .bg-flow-num {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 28px;
+	height: 28px;
+	background: #337ab7;
+	color: #fff;
+	border-radius: 50%;
+	font-weight: 700;
+	font-size: 13px;
+	flex-shrink: 0;
+}
+
+.sitedown-styles-guide .bg-flow-label {
+	font-size: 13px;
+	font-weight: 600;
+	color: #333;
+}
+
+.sitedown-styles-guide .bg-flow-arrow {
+	color: #adb5bd;
+	font-size: 18px;
+	font-weight: 700;
+}
+
+/* ── User Guide — Section Title ── */
+.sitedown-styles-guide .bg-section-title {
+	color: #333;
+	font-size: 16px;
+	font-weight: 700;
+	border-bottom: 2px solid #337ab7;
+	padding-bottom: 6px;
+	margin: 28px 0 16px;
+}
+
+.sitedown-styles-guide .bg-section-title i {
+	margin-right: 6px;
+	color: #337ab7;
+}
+
+/* ── User Guide — Feature Cards ── */
+.sitedown-styles-guide .bg-features-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+	gap: 14px;
+	margin-bottom: 28px;
+}
+
+.sitedown-styles-guide .bg-feature-card {
+	background: #fff;
+	border: 1px solid #e2e6ea;
+	border-radius: 6px;
+	padding: 16px 14px;
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	transition: box-shadow .2s ease, border-color .2s ease;
+}
+
+.sitedown-styles-guide .bg-feature-card:hover {
+	border-color: #337ab7;
+	box-shadow: 0 2px 8px rgba(51,122,183,.12);
+}
+
+.sitedown-styles-guide .bg-feature-icon {
+	font-size: 22px;
+	color: #337ab7;
+	margin-bottom: 4px;
+}
+
+.sitedown-styles-guide .bg-feature-card strong {
+	font-size: 13px;
+	color: #333;
+}
+
+.sitedown-styles-guide .bg-feature-card span {
+	font-size: 12px;
+	color: #666;
+	line-height: 1.5;
+}
+
+/* ── User Guide — Use-Case Table ── */
+.sitedown-styles-guide .bg-usecases-intro {
+	font-size: 13px;
+	color: #555;
+	margin-bottom: 12px;
+}
+
+.sitedown-styles-guide .bg-usecases-table thead th {
+	text-align: center;
+	vertical-align: middle;
+	font-size: 12px;
+	background: #337ab7 !important;
+	color: #fff !important;
+	white-space: nowrap;
+}
+
+.sitedown-styles-guide .bg-usecases-table thead th i {
+	display: block;
+	font-size: 18px;
+	margin-bottom: 4px;
+}
+
+.sitedown-styles-guide .bg-usecases-table .bg-uc-feature-col {
+	text-align: left;
+	min-width: 160px;
+}
+
+.sitedown-styles-guide .bg-uc-col {
+	min-width: 90px;
+}
+
+.sitedown-styles-guide .bg-uc-yes {
+	color: #28a745;
+	font-weight: 700;
+	font-size: 16px;
+}
+
+.sitedown-styles-guide .bg-uc-optional {
+	color: #ffc107;
+	font-weight: 700;
+	font-size: 16px;
+}
+
+.sitedown-styles-guide .bg-uc-no {
+	color: #adb5bd;
+	font-weight: 700;
+	font-size: 16px;
+}
+
+/* ── User Guide — Use-Case Legend ── */
+.sitedown-styles-guide .bg-uc-legend {
+	display: flex;
+	gap: 20px;
+	font-size: 12px;
+	color: #555;
+	margin: 8px 0 28px;
+	flex-wrap: wrap;
+}
+
+.sitedown-styles-guide .bg-uc-legend > span {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+}
+
+/* ── User Guide — Example Cards ── */
+.sitedown-styles-guide .bg-examples-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+	gap: 14px;
+	margin-bottom: 28px;
+}
+
+.sitedown-styles-guide .bg-example-card {
+	background: #f8f9fa;
+	border: 1px solid #e9ecef;
+	border-left: 4px solid #337ab7;
+	border-radius: 4px;
+	padding: 14px 16px;
+}
+
+.sitedown-styles-guide .bg-example-icon {
+	font-size: 20px;
+	color: #337ab7;
+	margin-bottom: 6px;
+}
+
+.sitedown-styles-guide .bg-example-card strong {
+	display: block;
+	font-size: 14px;
+	color: #333;
+	margin-bottom: 4px;
+}
+
+.sitedown-styles-guide .bg-example-card p {
+	font-size: 12px;
+	color: #555;
+	margin-bottom: 0;
+	line-height: 1.5;
+}
+
+/* ── User Guide — Definition Lists (Troubleshooting) ── */
+.sitedown-styles-guide dl {
+	margin-top: 10px;
+}
+
+.sitedown-styles-guide dt {
+	font-size: 14px;
+	margin-top: 12px;
+	color: #c9302c;
+}
+
+.sitedown-styles-guide dd {
+	margin-left: 15px;
+	margin-bottom: 8px;
+	color: #555;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   Dashboard v2.0 — KPI Cards, Charts, Tables
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.booking-dashboard {
+	color: #333;
+	font-size: 14px;
+	line-height: 1.6;
+}
+

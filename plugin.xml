@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e107Plugin name="Sitedown Styles" lan="LAN_PLUGIN_SITEDOWN_STYLES_NAME" version="2.0.0" date="2026-05-10" compatibility="2.3" installRequired="true" >
+	<author name="Kanonimpresor" url="https://marketingdeperformance.online" email="info@marketingdeperformance.online" />
+	<summary lan="LAN_PLUGIN_SITEDOWN_STYLES_SUMMARY">Professional maintenance page templates with multiple styles for different business niches.</summary>
+	<description lan="LAN_PLUGIN_SITEDOWN_STYLES_DESCRIPTION">A comprehensive collection of 8 professionally designed maintenance page templates built with Bootstrap 5.</description>
+	<category>tools</category>
+	<keywords>
+		<word>maintenance</word>
+		<word>sitedown</word>
+		<word>templates</word>
+		<word>bootstrap</word>
+		<word>coming soon</word>
+	</keywords>
+	<copyright>GNU General Public License v3</copyright>
+	<adminLinks>
+		<link url="admin_config.php" description="LAN_PLUGIN_SITEDOWN_STYLES_ADMIN" icon="images/web-optimization-32.png" iconSmall="images/web-optimization-16.png" icon128="images/web-optimization-128.png" primary="true">LAN_PLUGIN_SITEDOWN_STYLES_NAME</link>
+	</adminLinks>
+	<pluginPrefs>
+		<pref name="sitedown_active_style">agency</pref>
+		<pref name="sitedown_css_version">3</pref>
+		<pref name="sitedown_accent_color"></pref>
+		<pref name="sitedown_countdown_enabled">1</pref>
+		<pref name="sitedown_countdown_date"></pref>
+		<pref name="sitedown_progress_enabled">0</pref>
+		<pref name="sitedown_progress_value">75</pref>
+		<pref name="sitedown_newsletter_enabled">0</pref>
+		<pref name="sitedown_social_enabled">1</pref>
+		<pref name="sitedown_social_facebook"></pref>
+		<pref name="sitedown_social_twitter"></pref>
+		<pref name="sitedown_social_instagram"></pref>
+		<pref name="sitedown_social_linkedin"></pref>
+		<pref name="sitedown_contact_phone"></pref>
+		<pref name="sitedown_contact_email"></pref>
+		<pref name="sitedown_custom_title"></pref>
+		<pref name="sitedown_custom_subtitle"></pref>
+		<pref name="sitedown_logo_url"></pref>
+	</pluginPrefs>
+	<screenshots>
+		<image>images/web-optimization-256.png</image>
+	</screenshots>
+	<!-- New <screenshot> tag aligned with e107 2.3.x Lite issue #32 (GitHub-based marketplace).
+	     Kept alongside the legacy <screenshots><image> block for backward compatibility. -->
+	<screenshot>images/web-optimization-256.png</screenshot>
+</e107Plugin>

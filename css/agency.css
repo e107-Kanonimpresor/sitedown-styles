@@ -1,0 +1,103 @@
+/*
+ * Sitedown Styles — Agency skin
+ * Glassmorphism, purple/cyan gradient, animated blobs.
+ * Extracted from legacy templates/agency_template.php (v1.x).
+ *
+ * @package sitedown_styles
+ * @since   2.0.0
+ */
+
+.ss--agency {
+    --ss-bg: #050508;
+    --ss-bg-alt: #0f0f1a;
+    --ss-fg: #f8fafc;
+    --ss-fg-muted: #94a3b8;
+    --ss-accent: #7c3aed;
+    --ss-accent-2: #06b6d4;
+    --ss-card-bg: rgba(255, 255, 255, 0.05);
+    --ss-card-border: rgba(255, 255, 255, 0.10);
+    --ss-radius: 32px;
+    --ss-font: "Sora", system-ui, sans-serif;
+    --ss-font-display: "Sora", system-ui, sans-serif;
+}
+
+/* Animated background decoration (rendered via {SS_DECOR}) */
+.ss--agency .ss-decor {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: var(--ss-bg);
+    overflow: hidden;
+}
+.ss--agency .ss-decor::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(124, 58, 237, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(124, 58, 237, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+}
+.ss--agency .ss-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.5;
+    animation: ss-agency-float 20s ease-in-out infinite;
+}
+.ss--agency .ss-blob-1 {
+    width: 500px; height: 500px;
+    background: linear-gradient(135deg, var(--ss-accent), var(--ss-accent-2));
+    top: -200px; left: -100px;
+}
+.ss--agency .ss-blob-2 {
+    width: 400px; height: 400px;
+    background: linear-gradient(135deg, var(--ss-accent-2), var(--ss-accent));
+    bottom: -150px; right: -100px;
+    animation-delay: -10s;
+}
+@keyframes ss-agency-float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50%      { transform: translate(30px, -30px) scale(1.1); }
+}
+
+/* Card glass effect */
+.ss--agency .ss-card {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    max-width: 700px;
+    text-align: center;
+}
+.ss--agency .ss-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+}
+
+/* Agency uses single-centered layout (override 2-col base) */
+.ss--agency .ss-main {
+    grid-template-columns: 1fr;
+    text-align: center;
+}
+.ss--agency .ss-left,
+.ss--agency .ss-right {
+    text-align: center;
+    align-items: center;
+}
+.ss--agency .ss-badge { align-self: center; }
+
+/* Logo gradient text */
+.ss--agency .ss-logo {
+    background: linear-gradient(135deg, var(--ss-fg), var(--ss-fg-muted));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Footer no border on agency */
+.ss--agency .ss-footer {
+    border-top: none;
+    padding-top: 0;
+}

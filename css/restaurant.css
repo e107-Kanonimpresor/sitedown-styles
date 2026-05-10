@@ -1,0 +1,412 @@
+/*
+ * Sitedown Styles — Restaurant skin
+ * Elegant warm design for restaurants, cafes and bars.
+ * Centered ornate brand block (cup icon between fork+knife slash marks),
+ * Playfair Display serif title with italic gold accent, ornament bar,
+ * red maintenance badge, gold-cornered countdown panel.
+ *
+ * Extracted from legacy templates/restaurant_template.php (v1.x).
+ *
+ * @package sitedown_styles
+ * @since   2.0.0
+ */
+
+.ss--restaurant {
+    --ss-bg: #0c0a09;
+    --ss-bg-alt: #1c1917;
+    --ss-fg: #fafaf9;
+    --ss-fg-muted: #a8a29e;
+    --ss-accent: #b91c1c;
+    --ss-accent-2: #991b1b;
+    --ss-gold: #d97706;
+    --ss-gold-light: #f59e0b;
+    --ss-wood: #292524;
+    --ss-card-bg: #1c1917;
+    --ss-card-border: rgba(217, 119, 6, 0.2);
+    --ss-radius: 8px;
+    --ss-radius-sm: 4px;
+    --ss-font: "Lato", system-ui, sans-serif;
+    --ss-font-display: "Playfair Display", Georgia, serif;
+}
+
+body.ss.ss--restaurant {
+    background: var(--ss-bg);
+    color: var(--ss-fg);
+    font-family: var(--ss-font);
+}
+
+/* ===== Background decor (gradient + dot pattern + 2 lines) ==== */
+.ss-bg--restaurant {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background:
+        linear-gradient(180deg, rgba(12, 10, 9, 0.95) 0%, rgba(28, 25, 23, 0.98) 100%),
+        url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23d97706' fill-opacity='0.04' fill-rule='evenodd'/%3E%3C/svg%3E");
+}
+.ss-decor-line {
+    position: fixed;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--ss-gold), transparent);
+    opacity: 0.25;
+    z-index: 0;
+    pointer-events: none;
+}
+.ss-decor-line--top    { top: 80px; }
+.ss-decor-line--bottom { bottom: 80px; }
+
+/* ===== Stage / card ==========================================
+ * Decor lines (`.ss-decor-line`) are fixed at top:80px / bottom:80px.
+ * Stage padding keeps the content visually inside those gold lines on
+ * normal viewports. We deliberately DO NOT cap `.ss-card` height — a
+ * scrollbar inside the card would crop the brand logo. If a desktop
+ * viewport is very short the body-level `overflow:hidden` from
+ * `_base.css` will simply hide the overflow (which is preferable to
+ * losing the logo). */
+.ss--restaurant .ss-stage {
+    position: relative;
+    z-index: 1;
+    padding: clamp(96px, 12vh, 120px) 20px;
+}
+.ss--restaurant .ss-card {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    max-width: 1100px;
+    padding: 0;
+    text-align: center;
+    /* No max-height / overflow — let the brand block be fully visible */
+    max-height: none;
+    overflow: visible;
+}
+
+/* ===== Header: ornate centered brand block ================== */
+.ss--restaurant .ss-header {
+    text-align: center;
+    margin-bottom: clamp(14px, 2.5vh, 32px);
+    padding: 0;
+    background: transparent;
+    border: none;
+}
+.ss-restaurant-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(10px, 1.6vh, 20px);
+}
+.ss-restaurant-icons {
+    display: inline-flex;
+    align-items: center;
+    gap: 20px;
+}
+.ss-restaurant-fork,
+.ss-restaurant-knife {
+    font-size: 2rem;
+    color: var(--ss-gold);
+}
+.ss-restaurant-fork  { transform: rotate(-20deg); }
+.ss-restaurant-knife { transform: rotate(20deg); }
+.ss-restaurant-circle {
+    width: clamp(60px, 9vh, 90px);
+    height: clamp(60px, 9vh, 90px);
+    border: 2px solid var(--ss-gold);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.ss-restaurant-circle::before {
+    content: "";
+    position: absolute;
+    inset: 6px;
+    border: 1px solid rgba(217, 119, 6, 0.3);
+    border-radius: 50%;
+}
+.ss-restaurant-circle i { font-size: 2.2rem; color: var(--ss-gold); }
+.ss-logo--restaurant {
+    font-family: var(--ss-font-display);
+    font-size: clamp(2.2rem, 5vw, 3.2rem);
+    font-weight: 700;
+    color: var(--ss-fg);
+    letter-spacing: 4px;
+}
+.ss-logo--restaurant img { max-height: 60px; }
+.ss-restaurant-tagline {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 6px;
+    color: var(--ss-gold);
+    margin: 0;
+}
+.ss-restaurant-ornament {
+    display: inline-flex;
+    align-items: center;
+    gap: 18px;
+}
+.ss-orn-line {
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--ss-gold));
+}
+.ss-orn-line:last-child {
+    background: linear-gradient(90deg, var(--ss-gold), transparent);
+}
+.ss-orn-diamond {
+    width: 10px;
+    height: 10px;
+    background: var(--ss-gold);
+    transform: rotate(45deg);
+}
+
+/* ===== Main: 2-col split (left = pitch, right = countdown) === */
+.ss--restaurant .ss-main {
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(20px, 3vw, 50px);
+    align-items: start;
+    text-align: left;
+}
+.ss--restaurant .ss-left  { text-align: left; align-items: stretch; display: flex; flex-direction: column; }
+.ss--restaurant .ss-right { text-align: left; align-items: stretch; }
+
+/* ===== Badge (red maintenance pill) ========================= */
+.ss--restaurant .ss-badge {
+    background: rgba(185, 28, 28, 0.15);
+    border: 1px solid rgba(185, 28, 28, 0.3);
+    color: var(--ss-accent);
+    border-radius: var(--ss-radius-sm);
+    padding: 12px 28px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    align-self: flex-start;
+}
+.ss--restaurant .ss-badge i { color: var(--ss-accent); animation: none; }
+
+/* ===== Title (Playfair, italic gold accent) ================== */
+.ss--restaurant .ss-title {
+    font-family: var(--ss-font-display);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 500;
+    line-height: 1.3;
+    color: var(--ss-fg);
+}
+.ss--restaurant .ss-title .ss-accent {
+    background: none;
+    -webkit-text-fill-color: currentColor;
+    color: var(--ss-gold);
+    font-style: italic;
+    font-weight: 500;
+}
+
+/* ===== Description ========================================== */
+.ss--restaurant .ss-description {
+    color: var(--ss-fg-muted);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    font-weight: 300;
+}
+
+/* ===== Info cards (features block: phone/geo/clock) =========
+ * Restaurant lays them out HORIZONTALLY at the bottom of the left
+ * column (margin-top: auto pushes them down once the column has flex
+ * height from .ss-left being a flex column). */
+.ss-info-cards {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: clamp(12px, 2vw, 24px);
+    margin-top: auto;                /* anchor at bottom of .ss-left  */
+    padding-top: clamp(20px, 3vh, 32px);
+    border-top: 1px solid rgba(217, 119, 6, 0.15);
+}
+.ss-info-card {
+    display: flex;
+    flex: 1 1 0;                     /* equal-width 3-up row          */
+    min-width: 140px;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+}
+.ss-info-icon {
+    width: 50px;
+    height: 50px;
+    background: rgba(217, 119, 6, 0.1);
+    border: 1px solid rgba(217, 119, 6, 0.2);
+    border-radius: var(--ss-radius-sm);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ss-gold);
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+.ss-info-content { text-align: center; }
+.ss-info-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--ss-fg-muted);
+    margin: 0 0 2px;
+}
+.ss-info-value {
+    font-family: var(--ss-font-display);
+    font-size: 1rem;
+    color: var(--ss-fg);
+    margin: 0;
+}
+
+/* ===== Countdown: ornate panel with gold corner brackets ==== */
+.ss--restaurant .ss-countdown-wrap {
+    background: var(--ss-wood);
+    border: 1px solid var(--ss-card-border);
+    border-radius: var(--ss-radius);
+    padding: clamp(20px, 3vh, 36px);
+    position: relative;
+}
+.ss--restaurant .ss-countdown-wrap::before,
+.ss--restaurant .ss-countdown-wrap::after {
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-color: var(--ss-gold);
+    border-style: solid;
+    pointer-events: none;
+}
+.ss--restaurant .ss-countdown-wrap::before {
+    top: 12px; left: 12px;
+    border-width: 2px 0 0 2px;
+}
+.ss--restaurant .ss-countdown-wrap::after {
+    bottom: 12px; right: 12px;
+    border-width: 0 2px 2px 0;
+}
+.ss--restaurant .ss-countdown-label {
+    font-family: var(--ss-font-display);
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--ss-gold);
+    text-align: center;
+    margin-bottom: clamp(12px, 2vh, 22px);
+}
+.ss--restaurant .ss-countdown { gap: clamp(20px, 3vw, 40px); justify-content: center; }
+.ss--restaurant .ss-countdown-item {
+    background: transparent;
+    border: none;
+    padding: 0;
+    min-width: auto;
+}
+.ss--restaurant .ss-countdown-value {
+    font-family: var(--ss-font-display);
+    font-size: clamp(2.2rem, 5vh, 3.4rem);
+    font-weight: 600;
+    color: var(--ss-fg);
+}
+.ss--restaurant .ss-countdown-unit {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--ss-fg-muted);
+}
+
+/* ===== Newsletter ============================================ */
+.ss--restaurant .ss-newsletter-title {
+    font-family: var(--ss-font-display);
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--ss-fg-muted);
+}
+.ss--restaurant .ss-input {
+    background: var(--ss-wood);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--ss-fg);
+    border-radius: var(--ss-radius-sm);
+    padding: 16px 22px;
+}
+.ss--restaurant .ss-input:focus {
+    border-color: var(--ss-gold);
+    box-shadow: none;
+}
+.ss--restaurant .ss-btn {
+    background: var(--ss-accent);
+    border-radius: var(--ss-radius-sm);
+    padding: 16px 32px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.9rem;
+}
+.ss--restaurant .ss-btn:hover {
+    background: var(--ss-accent-2);
+    transform: translateY(-2px);
+    box-shadow: none;
+}
+
+/* ===== Contact (right column, secondary to info-cards) ====== */
+.ss--restaurant .ss-contact a {
+    color: var(--ss-fg-muted);
+    background: transparent;
+    padding: 0;
+}
+.ss--restaurant .ss-contact a:hover { color: var(--ss-gold); background: transparent; }
+.ss--restaurant .ss-contact i { color: var(--ss-gold); }
+
+/* ===== Footer / social ====================================== */
+.ss--restaurant .ss-footer {
+    border-top: 1px solid rgba(217, 119, 6, 0.15);
+    text-align: center;
+    margin-top: clamp(14px, 2.5vh, 32px);
+}
+.ss--restaurant .ss-social {
+    justify-content: center;
+}
+.ss--restaurant .ss-social a {
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.1);
+    color: var(--ss-fg-muted);
+    border-radius: var(--ss-radius-sm);
+    width: 52px;
+    height: 52px;
+}
+.ss--restaurant .ss-social a:hover {
+    background: var(--ss-gold);
+    border-color: var(--ss-gold);
+    color: var(--ss-bg-alt);
+}
+.ss--restaurant .ss-quote {
+    font-family: var(--ss-font-display);
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--ss-fg-muted);
+}
+
+/* ===== Responsive ============================================ */
+@media (max-width: 768px) {
+    .ss--restaurant .ss-stage { padding: clamp(72px, 10vh, 100px) 18px; }
+    .ss--restaurant .ss-card  { max-height: none; }
+    .ss--restaurant .ss-main { grid-template-columns: 1fr; text-align: center; }
+    .ss--restaurant .ss-left,
+    .ss--restaurant .ss-right { text-align: center; align-items: center; }
+    .ss--restaurant .ss-badge { align-self: center; }
+    .ss-info-cards { justify-content: center; }
+    .ss-restaurant-icons { gap: 12px; }
+    .ss-restaurant-fork,
+    .ss-restaurant-knife { font-size: 1.5rem; }
+    .ss-decor-line--top    { top: 60px; }
+    .ss-decor-line--bottom { bottom: 60px; }
+}
+@media (max-width: 576px) {
+    .ss--restaurant .ss-countdown { gap: 16px; flex-wrap: wrap; }
+    .ss--restaurant .ss-countdown-value { font-size: 2.2rem; }
+    .ss-orn-line { width: 50px; }
+    .ss-logo--restaurant { font-size: 2rem; letter-spacing: 2px; }
+    .ss-info-cards { flex-direction: column; }      /* stack on phones */
+    .ss-info-card  { flex-direction: row; gap: 14px; text-align: left; }
+    .ss-info-content { text-align: left; }
+}

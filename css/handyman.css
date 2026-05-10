@@ -1,0 +1,422 @@
+/*
+ * Sitedown Styles — Handyman skin
+ * Practical / functional design for repair and maintenance services.
+ * Split layout: fixed-width red emergency panel on the left + dark
+ * main content panel on the right. Industrial feel with hazard stripe.
+ *
+ * Extracted from legacy templates/handyman_template.php (v1.x).
+ *
+ * @package sitedown_styles
+ * @since   2.0.0
+ */
+
+.ss--handyman {
+    --ss-bg: #0c0a09;
+    --ss-bg-alt: #1c1917;
+    --ss-fg: #f5f5f4;
+    --ss-fg-muted: #78716c;
+    --ss-accent: #dc2626;
+    --ss-accent-2: #b91c1c;
+    --ss-accent-warn: #f59e0b;
+    --ss-card-bg: #1c1917;
+    --ss-card-border: rgba(255, 255, 255, 0.05);
+    --ss-radius: 16px;
+    --ss-radius-sm: 12px;
+    --ss-emerg-width: 380px;
+    --ss-font: "Archivo", "Roboto Condensed", system-ui, sans-serif;
+    --ss-font-display: "Archivo", "Roboto Condensed", system-ui, sans-serif;
+}
+
+body.ss.ss--handyman {
+    background: var(--ss-bg);
+    color: var(--ss-fg);
+    font-family: var(--ss-font);
+}
+
+/* ===== Stage occupies the right side; left is the decor panel = */
+.ss--handyman .ss-stage {
+    padding: 0;
+    align-items: stretch;
+    justify-content: flex-end;
+}
+.ss--handyman .ss-card {
+    background: var(--ss-bg);
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    width: calc(100% - var(--ss-emerg-width));
+    max-width: calc(100% - var(--ss-emerg-width));
+    min-height: 100vh;
+    padding: clamp(24px, 4vh, 60px) clamp(24px, 4vw, 60px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* ===== Left emergency panel (decor) ========================== */
+.ss-emerg-panel {
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    width: var(--ss-emerg-width);
+    background: var(--ss-accent);
+    color: #fff;
+    padding: clamp(24px, 4vh, 50px) clamp(20px, 3vw, 40px);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 0;
+}
+.ss-emerg-stripe {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 20px;
+    background: repeating-linear-gradient(
+        45deg,
+        var(--ss-accent-warn),
+        var(--ss-accent-warn) 15px,
+        var(--ss-bg-alt) 15px,
+        var(--ss-bg-alt) 30px
+    );
+}
+.ss-emerg-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    align-self: flex-start;
+    padding: 12px 20px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.85rem;
+    margin-bottom: clamp(16px, 3vh, 40px);
+}
+.ss-emerg-badge i { font-size: 1.2rem; }
+.ss-emerg-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: clamp(10px, 1.5vh, 20px);
+}
+.ss-emerg-text {
+    font-size: 1rem;
+    opacity: 0.9;
+    line-height: 1.5;
+    margin-bottom: clamp(16px, 2.5vh, 40px);
+}
+.ss-emerg-contact { margin-top: auto; padding-bottom: 30px; }
+.ss-emerg-call-label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    opacity: 0.8;
+    margin-bottom: 10px;
+}
+.ss-emerg-phone {
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    line-height: 1.1;
+    margin: 0;
+}
+.ss-emerg-phone a { color: #fff; text-decoration: none; }
+.ss-emerg-phone a:hover { text-decoration: underline; }
+.ss-emerg-avail {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 15px;
+    font-size: 0.9rem;
+}
+.ss-emerg-avail i {
+    color: var(--ss-accent-warn);
+    animation: ss-handyman-pulse 2s infinite;
+    font-size: 0.7rem;
+}
+@keyframes ss-handyman-pulse {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0.5; }
+}
+
+/* ===== Header ================================================ */
+.ss--handyman .ss-header {
+    text-align: left;
+    margin-bottom: clamp(16px, 3vh, 50px);
+    padding: 0;
+    background: transparent;
+    border: none;
+}
+.ss--handyman .ss-logo {
+    color: var(--ss-fg);
+    font-size: 1.8rem;
+    font-weight: 800;
+}
+
+/* ===== Main: single column inside the right card ============= */
+.ss--handyman .ss-main {
+    grid-template-columns: 1fr;
+    text-align: left;
+    align-items: stretch;
+    gap: clamp(12px, 2vh, 22px);
+}
+.ss--handyman .ss-left,
+.ss--handyman .ss-right {
+    text-align: left;
+    align-items: stretch;
+    gap: clamp(12px, 2vh, 22px);
+    max-width: 600px;
+}
+
+/* ===== Status (badge → blinking indicator) =================== */
+.ss--handyman .ss-badge {
+    background: transparent;
+    border: none;
+    padding: 0;
+    color: var(--ss-fg-muted);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.9rem;
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+}
+.ss--handyman .ss-badge i {
+    width: 12px;
+    height: 12px;
+    background: var(--ss-accent-warn);
+    border-radius: 50%;
+    color: transparent;
+    font-size: 0;
+    animation: ss-handyman-blink 1.5s infinite;
+}
+@keyframes ss-handyman-blink {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0.3; }
+}
+
+/* ===== Title ================================================= */
+.ss--handyman .ss-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--ss-fg);
+}
+.ss--handyman .ss-title .ss-accent {
+    background: none;
+    -webkit-text-fill-color: currentColor;
+    color: var(--ss-accent);
+}
+
+/* ===== Description =========================================== */
+.ss--handyman .ss-description {
+    color: var(--ss-fg-muted);
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+/* ===== Countdown: dark card on dark bg ====================== */
+.ss--handyman .ss-countdown-wrap {
+    background: var(--ss-bg-alt);
+    border-radius: var(--ss-radius);
+    padding: clamp(16px, 2.5vh, 30px);
+}
+.ss--handyman .ss-countdown-label {
+    color: var(--ss-fg-muted);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.85rem;
+    margin-bottom: clamp(10px, 1.5vh, 20px);
+}
+.ss--handyman .ss-countdown { gap: 20px; justify-content: flex-start; }
+.ss--handyman .ss-countdown-item {
+    background: transparent;
+    border: none;
+    padding: 0;
+    text-align: center;
+}
+.ss--handyman .ss-countdown-value {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--ss-fg);
+}
+.ss--handyman .ss-countdown-unit {
+    color: var(--ss-fg-muted);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ===== Services grid (features block) =======================
+ * Default 2x2 grid. The 4 trade icons (Electrical / Plumbing /
+ * Locksmith / HVAC) wrap as 2 rows of 2 — keeps the right card
+ * compact instead of stretching a 4-row vertical list. */
+.ss-services-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+.ss-service-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: clamp(12px, 1.8vh, 20px);
+    background: var(--ss-bg-alt);
+    border-radius: var(--ss-radius-sm);
+    border-left: 4px solid var(--ss-accent);
+}
+.ss-service-card-icon {
+    width: 48px;
+    height: 48px;
+    background: rgba(220, 38, 38, 0.15);
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ss-accent);
+    font-size: 1.3rem;
+    flex-shrink: 0;
+}
+.ss-service-card-name {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--ss-fg);
+}
+
+/* Service cards rendered INSIDE the red emergency panel — invert
+ * colours so they read on the warm background instead of the dark
+ * card surface they were originally designed for. */
+.ss-emerg-services {
+    margin: clamp(16px, 3vh, 28px) 0;
+}
+.ss-emerg-services .ss-service-card {
+    background: rgba(0, 0, 0, 0.18);
+    border-left-color: rgba(255, 255, 255, 0.5);
+    padding: clamp(10px, 1.6vh, 16px);
+    gap: 12px;
+}
+.ss-emerg-services .ss-service-card-icon {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    width: 38px;
+    height: 38px;
+    font-size: 1.05rem;
+}
+.ss-emerg-services .ss-service-card-name {
+    color: #fff;
+    font-size: 0.85rem;
+}
+
+/* ===== Progress bar (extra block) =========================== */
+.ss-progress { width: 100%; }
+.ss-progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+.ss-progress-label {
+    font-size: 0.85rem;
+    color: var(--ss-fg-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.ss-progress-value { font-weight: 700; color: var(--ss-accent); }
+.ss-progress-track {
+    height: 10px;
+    background: var(--ss-bg-alt);
+    border-radius: 5px;
+    overflow: hidden;
+}
+.ss-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--ss-accent), var(--ss-accent-warn));
+    border-radius: 5px;
+    transition: width 0.6s ease;
+}
+
+/* ===== Newsletter ============================================ */
+.ss--handyman .ss-newsletter-title { color: var(--ss-fg-muted); }
+.ss--handyman .ss-input {
+    background: var(--ss-bg-alt);
+    border: 1px solid var(--ss-card-border);
+    color: var(--ss-fg);
+    border-radius: 8px;
+    padding: 14px 18px;
+}
+.ss--handyman .ss-input::placeholder { color: var(--ss-fg-muted); }
+.ss--handyman .ss-input:focus {
+    border-color: var(--ss-accent);
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2);
+}
+.ss--handyman .ss-btn {
+    background: var(--ss-accent);
+    border-radius: 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.ss--handyman .ss-btn:hover {
+    background: var(--ss-accent-2);
+    transform: translateY(-1px);
+}
+
+/* ===== Contact (right column, secondary to emergency phone) === */
+.ss--handyman .ss-contact a {
+    background: var(--ss-bg-alt);
+    color: var(--ss-fg);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-weight: 600;
+}
+.ss--handyman .ss-contact a:hover { background: var(--ss-accent); color: #fff; }
+.ss--handyman .ss-contact i { color: var(--ss-accent); }
+
+/* ===== Footer / social ====================================== */
+.ss--handyman .ss-footer {
+    border-top: 1px solid var(--ss-card-border);
+    text-align: left;
+}
+.ss--handyman .ss-social { justify-content: flex-start; }
+.ss--handyman .ss-social a {
+    background: var(--ss-bg-alt);
+    border-color: transparent;
+    color: var(--ss-fg);
+}
+.ss--handyman .ss-social a:hover {
+    background: var(--ss-accent);
+    color: #fff;
+}
+.ss--handyman .ss-quote { color: var(--ss-fg-muted); }
+
+/* ===== Responsive: stack panels on tablet/mobile ============= */
+@media (max-width: 992px) {
+    .ss-emerg-panel {
+        position: static;
+        width: 100%;
+        height: auto;
+        padding: 30px;
+    }
+    .ss-emerg-contact { padding-bottom: 0; }
+    .ss--handyman .ss-stage {
+        flex-direction: column;
+        overflow-y: auto;
+        height: auto;
+        min-height: 100vh;
+    }
+    .ss--handyman .ss-card {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        max-height: none;
+        padding: 30px;
+    }
+    body.ss.ss--handyman { overflow: auto; height: auto; }
+    html { overflow: auto; height: auto; }
+}
+@media (max-width: 576px) {
+    .ss--handyman .ss-countdown { flex-wrap: wrap; }
+    .ss--handyman .ss-countdown-item { flex: 0 0 45%; }
+    .ss-services-grid { grid-template-columns: 1fr; }
+}

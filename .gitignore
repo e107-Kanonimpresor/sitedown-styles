@@ -1,0 +1,17 @@
+# Internal dev helpers (never publish)
+_opcache_reset.php
+
+# Internal documentation (not for end users)
+DIAGNOSTICO_E107_SITEDOWN.md
+GUIA_DESARROLLO_PLUGINS_E107.md
+
+# HTML prototypes (reference only, kept local)
+sitedown_e107_prototipos/
+
+# IDE / OS noise
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
