@@ -179,7 +179,7 @@ class sitedown_styles_ui extends e_admin_ui
         return array(
             'name'       => 'Sitedown Styles',
             'version'    => '2.0.0',
-            'released'   => '2026-05-02',
+            'released'   => '2026-05-10',
             'author'     => 'Kanonimpresor',
             'agency'     => 'Marketing de Performance',
             'website'    => 'https://marketingdeperformance.online',
@@ -187,12 +187,12 @@ class sitedown_styles_ui extends e_admin_ui
             'license'    => 'GNU General Public License v3.0',
             'license_url'=> 'https://www.gnu.org/licenses/gpl-3.0.html',
             'compat'     => 'e107 v2.3+ / PHP 8.0+',
-            'docs'       => 'https://github.com/Kanonimpresor/sitedown_styles/wiki',
-            'support'    => 'https://github.com/Kanonimpresor/sitedown_styles/issues',
-            'repo'       => 'https://github.com/Kanonimpresor/sitedown_styles',
-            'changelog'  => 'https://github.com/Kanonimpresor/sitedown_styles/blob/main/CHANGELOG.md',
+            'docs'       => 'https://github.com/e107-Kanonimpresor/sitedown-styles#readme',
+            'support'    => 'https://github.com/e107-Kanonimpresor/sitedown-styles/issues',
+            'repo'       => 'https://github.com/e107-Kanonimpresor/sitedown-styles',
+            'changelog'  => 'https://github.com/e107-Kanonimpresor/sitedown-styles/blob/main/CHANGELOG.md',
             'donate'     => 'https://www.paypal.com/donate/?hosted_button_id=C2DA8NC5XP56A',
-            'review'     => 'https://e107.org/marketplace',
+            'review'     => 'https://github.com/e107-Kanonimpresor/sitedown-styles/releases',
         );
     }
 
