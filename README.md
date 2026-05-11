@@ -2,7 +2,7 @@
 
 Professional maintenance page templates for e107 CMS with 8 unique designs for different business niches.
 
-![Version](https://img.shields.io/badge/version-2.0.0-blue)
+![Version](https://img.shields.io/badge/version-2.1.0-blue)
 ![e107](https://img.shields.io/badge/e107-2.3%2B-green)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-purple)
 ![License](https://img.shields.io/badge/license-GPL--3.0-orange)
@@ -15,6 +15,10 @@ Professional maintenance page templates for e107 CMS with 8 unique designs for d
 
 ---
 
+![Sitedown Styles — 8 templates preview](docs/images/hero-collage.jpg)
+
+> **v2.1.0 — User Guide 4-layer architecture.** Pure refactor: the in-admin Help system is now split into Controller / Template / `<Lang>_admin_help.php` (lazy-loaded) / Shortcodes-with-logic-only. Zero behavioural change. Full design doc in [`docs/architecture/USER_GUIDE_PATTERN.md`](docs/architecture/USER_GUIDE_PATTERN.md).
+>
 > **v2.0.0 — Master template architecture.** All 8 skins share a single semantic skeleton (`templates/sitedown_styles_template.php`) and are styled through `css/<skin>.css`. Per-skin texts can be customised from the admin **Texts** page without editing code or language files. See [`CHANGELOG.md`](CHANGELOG.md) for full details.
 
 ## 🎨 Available Templates
@@ -98,9 +102,13 @@ e107_themes/YOUR_THEME/templates/sitedown_template.php
 - Or use the **Preview** tab in the plugin settings
 - Per-style direct URL (admin only): `/e107_plugins/sitedown_styles/preview.php?style=<key>`
 
+![Admin → Preview tab](docs/images/admin-preview.png)
+
 ### In-Admin User Guide
 
-The plugin ships with a built-in **User Guide** tab (Admin → Sitedown Styles → User Guide) covering Overview, Install, Configuration, Activation, Placeholders and Troubleshooting. All copy is fully translatable via `LAN_PLUGIN_SITEDOWN_STYLES_GUIDE_*` constants.
+The plugin ships with a built-in **User Guide** tab (Admin → Sitedown Styles → User Guide) covering Overview, Install, Configuration, Activation, Placeholders and Troubleshooting. The Install tab includes a live status badge that detects whether the theme integration stub is present. All copy is fully translatable via `LAN_PLUGIN_SS_HELP_*` constants in `languages/<Lang>/<Lang>_admin_help.php` (lazy-loaded only when the tab is opened — see [USER_GUIDE_PATTERN.md](docs/architecture/USER_GUIDE_PATTERN.md)).
+
+![Admin → User Guide tab](docs/images/admin-guide.png)
 
 ## ⚙️ Configuration Options
 
@@ -108,10 +116,14 @@ The plugin ships with a built-in **User Guide** tab (Admin → Sitedown Styles �
 - Select from 8 professional templates
 - Visual preview of each design
 
+![Admin → Templates tab](docs/images/admin-templates-tab.png)
+
 ### Content Tab
 - Custom title (optional)
 - Custom message/subtitle
 - Logo image upload
+
+![Admin → Configuration tab](docs/images/admin-config.png)
 
 ### Countdown Tab
 - Enable/disable countdown timer
@@ -192,6 +204,8 @@ If a skin needs custom markup beyond CSS, override one of these four hooks:
 
 Admin → *Sitedown Styles* → **Texts** lets you override every per-skin `TPL_*` string (badge, countdown label, contact line, tagline, …) via prefs. Empty values fall back to the language file defaults.
 
+![Admin → Texts editor](docs/images/admin-copy-editor.png)
+
 ### Legacy fallback
 
 The 8 v1 monolithic templates were removed in v2.0.0. All rendering now goes through the master template + skin CSS.
@@ -270,6 +284,10 @@ This plugin is released under the GNU General Public License v3.0
 - [Bootstrap 5](https://getbootstrap.com) - CSS Framework
 - [Bootstrap Icons](https://icons.getbootstrap.com) - Icon Library
 - [Google Fonts](https://fonts.google.com) - Typography
+
+The plugin also ships with an **About** tab in the admin showing version, license and author info at a glance:
+
+![Admin → About tab](docs/images/admin-about.png)
 
 ---
 

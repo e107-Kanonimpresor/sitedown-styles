@@ -2,7 +2,7 @@
 
 Plantillas profesionales de página de mantenimiento para e107 CMS con 8 diseños únicos para diferentes sectores de negocio.
 
-![Versión](https://img.shields.io/badge/version-2.0.0-blue)
+![Versión](https://img.shields.io/badge/version-2.1.0-blue)
 ![e107](https://img.shields.io/badge/e107-2.3%2B-green)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-purple)
 ![Licencia](https://img.shields.io/badge/license-GPL--3.0-orange)
@@ -12,6 +12,12 @@ Plantillas profesionales de página de mantenimiento para e107 CMS con 8 diseño
 [![Language-English](https://img.shields.io/badge/Language-English-blue)](README.md)
 [![Language-Português](https://img.shields.io/badge/Language-Português-green)](README.pt-PT.md)
 [![Language-Español](https://img.shields.io/badge/Language-Español-red)](README.es-ES.md)
+
+---
+
+![Sitedown Styles — vista previa de las 8 plantillas](docs/images/hero-collage.jpg)
+
+> **v2.1.0 — Arquitectura User Guide en 4 capas.** Refactor puro: el sistema de Ayuda integrado en el admin queda dividido en Controller / Template / `<Lang>_admin_help.php` (carga diferida) / Shortcodes-solo-con-lógica. Cero cambio funcional. Documento de diseño completo en [`docs/architecture/USER_GUIDE_PATTERN.md`](docs/architecture/USER_GUIDE_PATTERN.md).
 
 ---
 
@@ -92,9 +98,13 @@ cp e107_plugins/sitedown_styles/theme_integration/sitedown_template.php \
 - O usa la pestaña **Vista Previa** del plugin
 - URL directa por estilo (solo admin): `/e107_plugins/sitedown_styles/preview.php?style=<clave>`
 
+![Admin → Vista Previa](docs/images/admin-preview.png)
+
 ### Guía de Usuario integrada
 
-El plugin incluye una pestaña **Guía de Usuario** dentro del admin (Admin → Sitedown Styles → Guía de Usuario) con secciones: Visión general, Instalación, Configuración, Activación, Placeholders y Solución de problemas. Todos los textos son traducibles vía constantes `LAN_PLUGIN_SITEDOWN_STYLES_GUIDE_*`.
+El plugin incluye una pestaña **Guía de Usuario** dentro del admin (Admin → Sitedown Styles → Guía de Usuario) con secciones: Visión general, Instalación, Configuración, Activación, Placeholders y Solución de problemas. La pestaña Instalación incluye una insignia de estado en vivo que detecta si el stub de integración del tema está presente. Todos los textos son traducibles vía constantes `LAN_PLUGIN_SS_HELP_*` en `languages/<Lang>/<Lang>_admin_help.php` (cargado solo cuando se abre la pestaña — ver [USER_GUIDE_PATTERN.md](docs/architecture/USER_GUIDE_PATTERN.md)).
+
+![Admin → Guía de Usuario](docs/images/admin-guide.png)
 
 ## ⚙️ Opciones de configuración
 
@@ -102,10 +112,14 @@ El plugin incluye una pestaña **Guía de Usuario** dentro del admin (Admin → 
 - Elige entre 8 plantillas profesionales
 - Vista previa visual de cada diseño
 
+![Admin → Pestaña Plantillas](docs/images/admin-templates-tab.png)
+
 ### Pestaña Contenido
 - Título personalizado (opcional)
 - Mensaje/subtítulo personalizado
 - Subida de logo
+
+![Admin → Pestaña Configuración](docs/images/admin-config.png)
 
 ### Pestaña Cuenta Regresiva
 - Activa/desactiva la cuenta regresiva
@@ -243,6 +257,10 @@ Plugin liberado bajo la GNU General Public License v3.0.
 - [Bootstrap 5](https://getbootstrap.com) — Framework CSS
 - [Bootstrap Icons](https://icons.getbootstrap.com) — Librería de iconos
 - [Google Fonts](https://fonts.google.com) — Tipografías
+
+El plugin también incluye una pestaña **Acerca de** en el admin con la versión, licencia e información del autor:
+
+![Admin → Acerca de](docs/images/admin-about.png)
 
 ---
 

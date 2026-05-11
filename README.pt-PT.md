@@ -2,7 +2,7 @@
 
 Modelos profissionais de página de manutenção para e107 CMS com 8 designs únicos para diferentes nichos de negócio.
 
-![Versão](https://img.shields.io/badge/version-2.0.0-blue)
+![Versão](https://img.shields.io/badge/version-2.1.0-blue)
 ![e107](https://img.shields.io/badge/e107-2.3%2B-green)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-purple)
 ![Licença](https://img.shields.io/badge/license-GPL--3.0-orange)
@@ -12,6 +12,12 @@ Modelos profissionais de página de manutenção para e107 CMS com 8 designs ún
 [![Language-English](https://img.shields.io/badge/Language-English-blue)](README.md)
 [![Language-Português](https://img.shields.io/badge/Language-Português-green)](README.pt-PT.md)
 [![Language-Español](https://img.shields.io/badge/Language-Español-red)](README.es-ES.md)
+
+---
+
+![Sitedown Styles — pré-visualização dos 8 modelos](docs/images/hero-collage.jpg)
+
+> **v2.1.0 — Arquitetura User Guide em 4 camadas.** Refactor puro: o sistema de Ajuda integrado no admin está agora dividido em Controller / Template / `<Lang>_admin_help.php` (carregamento diferido) / Shortcodes-só-com-lógica. Zero alteração funcional. Documento de design completo em [`docs/architecture/USER_GUIDE_PATTERN.md`](docs/architecture/USER_GUIDE_PATTERN.md).
 
 ---
 
@@ -92,9 +98,13 @@ cp e107_plugins/sitedown_styles/theme_integration/sitedown_template.php \
 - Ou usa o separador **Pré-visualizar** do plugin
 - URL directo por estilo (apenas admin): `/e107_plugins/sitedown_styles/preview.php?style=<chave>`
 
+![Admin → Pré-visualização](docs/images/admin-preview.png)
+
 ### Guia do Utilizador integrado
 
-O plugin inclui um separador **Guia do Utilizador** dentro do admin (Admin → Sitedown Styles → User Guide) com secções: Visão geral, Instalação, Configuração, Activação, Placeholders e Resolução de problemas. Todos os textos são traduzíveis via constantes `LAN_PLUGIN_SITEDOWN_STYLES_GUIDE_*`.
+O plugin inclui um separador **Guia do Utilizador** dentro do admin (Admin → Sitedown Styles → User Guide) com secções: Visão geral, Instalação, Configuração, Activação, Placeholders e Resolução de problemas. O separador Instalação inclui um indicador de estado em tempo real que detecta se o stub de integração do tema está presente. Todos os textos são traduzíveis via constantes `LAN_PLUGIN_SS_HELP_*` em `languages/<Lang>/<Lang>_admin_help.php` (carregado apenas quando o separador é aberto — ver [USER_GUIDE_PATTERN.md](docs/architecture/USER_GUIDE_PATTERN.md)).
+
+![Admin → Guia do Utilizador](docs/images/admin-guide.png)
 
 ## ⚙️ Opções de configuração
 
@@ -102,10 +112,14 @@ O plugin inclui um separador **Guia do Utilizador** dentro do admin (Admin → S
 - Escolhe entre 8 modelos profissionais
 - Pré-visualização visual de cada design
 
+![Admin → Separador Modelos](docs/images/admin-templates-tab.png)
+
 ### Separador Conteúdo
 - Título personalizado (opcional)
 - Mensagem/subtítulo personalizado
 - Carregamento de logótipo
+
+![Admin → Separador Configuração](docs/images/admin-config.png)
 
 ### Separador Contagem decrescente
 - Activa/desactiva a contagem decrescente
@@ -243,6 +257,10 @@ Plugin libertado sob a GNU General Public License v3.0.
 - [Bootstrap 5](https://getbootstrap.com) — Framework CSS
 - [Bootstrap Icons](https://icons.getbootstrap.com) — Biblioteca de ícones
 - [Google Fonts](https://fonts.google.com) — Tipografias
+
+O plugin inclui também um separador **Sobre** no admin com a versão, licença e informação do autor:
+
+![Admin → Separador Sobre](docs/images/admin-about.png)
 
 ---
 
