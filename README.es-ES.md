@@ -2,7 +2,7 @@
 
 Plantillas profesionales de página de mantenimiento para e107 CMS con 8 diseños únicos para diferentes sectores de negocio.
 
-![Versión](https://img.shields.io/badge/version-2.1.0-blue)
+![Versión](https://img.shields.io/badge/version-2.2.0-blue)
 ![e107](https://img.shields.io/badge/e107-2.3%2B-green)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-purple)
 ![Licencia](https://img.shields.io/badge/license-GPL--3.0-orange)
@@ -16,6 +16,8 @@ Plantillas profesionales de página de mantenimiento para e107 CMS con 8 diseño
 ---
 
 ![Sitedown Styles — vista previa de las 8 plantillas](docs/images/hero-collage.jpg)
+
+> **v2.2.0 — Pestaña Acerca de refactorizada al mismo patrón 4 capas.** Además: la versión se lee dinámicamente desde `plugin.xml` (fuente única de verdad — widget lateral, página Acerca de y token `{SS_HELP_VERSION}` quedan sincronizados automáticamente), y dos archivos de plantilla legacy se alinean con la convención e107 de prefijo por plugin (`admin_copy_template.php` → `sitedown_styles_copy_template.php`, `admin_templates_template.php` → `sitedown_styles_templates_template.php`). Diff completo en [`CHANGELOG.md`](CHANGELOG.md).
 
 > **v2.1.0 — Arquitectura User Guide en 4 capas.** Refactor puro: el sistema de Ayuda integrado en el admin queda dividido en Controller / Template / `<Lang>_admin_help.php` (carga diferida) / Shortcodes-solo-con-lógica. Cero cambio funcional. Documento de diseño completo en [`docs/architecture/USER_GUIDE_PATTERN.md`](docs/architecture/USER_GUIDE_PATTERN.md).
 

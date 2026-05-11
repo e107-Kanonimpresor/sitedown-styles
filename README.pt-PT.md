@@ -2,7 +2,7 @@
 
 Modelos profissionais de página de manutenção para e107 CMS com 8 designs únicos para diferentes nichos de negócio.
 
-![Versão](https://img.shields.io/badge/version-2.1.0-blue)
+![Versão](https://img.shields.io/badge/version-2.2.0-blue)
 ![e107](https://img.shields.io/badge/e107-2.3%2B-green)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-purple)
 ![Licença](https://img.shields.io/badge/license-GPL--3.0-orange)
@@ -16,6 +16,8 @@ Modelos profissionais de página de manutenção para e107 CMS com 8 designs ún
 ---
 
 ![Sitedown Styles — pré-visualização dos 8 modelos](docs/images/hero-collage.jpg)
+
+> **v2.2.0 — Separador Sobre refactorizado para o mesmo padrão de 4 camadas.** Além disso: a versão é lida dinamicamente do `plugin.xml` (fonte única de verdade — widget lateral, página Sobre e token `{SS_HELP_VERSION}` ficam sincronizados automaticamente), e dois ficheiros de template legados foram alinhados com a convenção e107 de prefixo por plugin (`admin_copy_template.php` → `sitedown_styles_copy_template.php`, `admin_templates_template.php` → `sitedown_styles_templates_template.php`). Diff completo em [`CHANGELOG.md`](CHANGELOG.md).
 
 > **v2.1.0 — Arquitetura User Guide em 4 camadas.** Refactor puro: o sistema de Ajuda integrado no admin está agora dividido em Controller / Template / `<Lang>_admin_help.php` (carregamento diferido) / Shortcodes-só-com-lógica. Zero alteração funcional. Documento de design completo em [`docs/architecture/USER_GUIDE_PATTERN.md`](docs/architecture/USER_GUIDE_PATTERN.md).
 

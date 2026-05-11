@@ -6,6 +6,41 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 
 ---
 
+## [2.2.0] — 2026-05-11
+
+Continuation of the v2.1.0 4-layer refactor: the **About tab** is now built on
+the same architecture, plugin metadata flows from a single source of truth, and
+two legacy template filenames are aligned with the e107 plugin-slug convention.
+
+### Added
+
+- **`templates/sitedown_styles_about_template.php`** — Layer 2 of the About tab. Single HTML blob referencing `{LAN_PLUGIN_SS_ABOUT_*}` (translations) and `{SS_ABOUT_*}` (dynamic data).
+- **`languages/<Lang>/<Lang>_admin_about.php`** in EN, ES, PT — Layer 3, lazy-loaded by `aboutPage()` (never paid for on other admin pages).
+- **`shortcodes/batch/sitedown_styles_about_shortcodes.php`** — Layer 4, 9 dynamic getters (identity, metadata grid, button bar, year, license). Plugin identity injected via `$sc->setVars($this->getPluginInfo())`, so the sidebar widget and the About page stay in sync automatically.
+- Generalized helper `sitedown_styles_ui::_resolveLans($html, $prefix)` reused by both `guidePage()` and `aboutPage()` (replaces the previous `_resolveHelpLans()` specific to `LAN_PLUGIN_SS_HELP_*`).
+
+### Changed
+
+- **Single source of truth for the version string.** `getPluginInfo()` now reads `version` and release `date` dynamically from `plugin.xml` via `e107::getPlug()->load('sitedown_styles')->getMeta()`. Future release bumps only need to touch `plugin.xml` + this file; the in-admin sidebar widget and About page update automatically.
+- **About tab refactored to the 4-layer pattern** — `aboutPage()` shrank from a 90-line `strtr` chain to a thin orchestrator (lazy-load LAN, getTemplate + getScBatch + setVars, pre-pass + parseTemplate).
+- **Two template files renamed** to follow the e107 plugin-slug convention (other plugins and core all prefix templates with the plugin folder name):
+  - `templates/admin_copy_template.php` → `templates/sitedown_styles_copy_template.php`
+  - `templates/admin_templates_template.php` → `templates/sitedown_styles_templates_template.php`
+- All references in `admin_config.php` updated accordingly (4 occurrences).
+
+### Removed
+
+- `templates/admin_about_template.php` (legacy 7-chunk `strtr` template, replaced by the Layer-2 single-blob template above).
+- 16 obsolete `LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_*` constants from each `<Lang>_admin.php` file (migrated to the new `<Lang>_admin_about.php` under the cleaner `LAN_PLUGIN_SS_ABOUT_*` namespace). The shared menu caption `LAN_PLUGIN_SITEDOWN_STYLES_ABOUT` and the sidebar `LAN_PLUGIN_SITEDOWN_STYLES_BTN_DOCS / SUPPORT / DONATE` constants are intentionally preserved.
+
+### Verification
+
+- `php -l` clean on all 12 touched / new files.
+- No orphan references to the old constants (`LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_*`), the old method (`_resolveHelpLans`), or the renamed templates (`admin_copy_template.php`, `admin_templates_template.php`).
+- README badges + `plugin.php` `@version` aligned with `plugin.xml` (`2.2.0`).
+
+---
+
 ## [2.1.0] — 2026-05-11
 
 Internal refactor of the in-admin **User Guide** to a clean 4-layer architecture.

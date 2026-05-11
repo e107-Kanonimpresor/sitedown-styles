@@ -2,7 +2,7 @@
 
 Professional maintenance page templates for e107 CMS with 8 unique designs for different business niches.
 
-![Version](https://img.shields.io/badge/version-2.1.0-blue)
+![Version](https://img.shields.io/badge/version-2.2.0-blue)
 ![e107](https://img.shields.io/badge/e107-2.3%2B-green)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-purple)
 ![License](https://img.shields.io/badge/license-GPL--3.0-orange)
@@ -16,6 +16,8 @@ Professional maintenance page templates for e107 CMS with 8 unique designs for d
 ---
 
 ![Sitedown Styles — 8 templates preview](docs/images/hero-collage.jpg)
+
+> **v2.2.0 — About tab refactored to the same 4-layer pattern.** Plus: the version string is now read dynamically from `plugin.xml` (single source of truth — sidebar widget, About page and `{SS_HELP_VERSION}` token all stay in sync automatically), and two legacy template filenames were aligned with the e107 plugin-slug convention (`admin_copy_template.php` → `sitedown_styles_copy_template.php`, `admin_templates_template.php` → `sitedown_styles_templates_template.php`). See [`CHANGELOG.md`](CHANGELOG.md) for the full diff.
 
 > **v2.1.0 — User Guide 4-layer architecture.** Pure refactor: the in-admin Help system is now split into Controller / Template / `<Lang>_admin_help.php` (lazy-loaded) / Shortcodes-with-logic-only. Zero behavioural change. Full design doc in [`docs/architecture/USER_GUIDE_PATTERN.md`](docs/architecture/USER_GUIDE_PATTERN.md).
 >

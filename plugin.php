@@ -4,7 +4,7 @@
  * Professional maintenance page templates
  * 
  * @package     sitedown_styles
- * @version     2.1.0
+ * @version     2.2.0
  * @author      Martin Costa (Kanonimpresor / Marketing de Performance)
  * @link        https://marketingdeperformance.online
  * @copyright   Copyright (c) 2025-2026

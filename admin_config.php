@@ -357,7 +357,7 @@ class sitedown_styles_ui extends e_admin_ui
      *
      * Concerns are split:
      *   • Logic (this method): pulls prefs, handles POST, builds a $templates data array.
-     *   • Markup: `templates/admin_templates_template.php` provides the placeholder strings.
+     *   • Markup: `templates/sitedown_styles_templates_template.php` provides the placeholder strings.
      *   • Styles: `css/admin_templates.css` (linked once at the top of the output).
      *   • Thumbnails: drop `images/thumbs/<key>.{jpg,jpeg,png,webp}` to override the
      *     fallback icon+gradient preview. See thumbs/README.md.
@@ -390,7 +390,7 @@ class sitedown_styles_ui extends e_admin_ui
         }
 
         // --- Load markup template -------------------------------------------
-        $tplFile = e_PLUGIN . 'sitedown_styles/templates/admin_templates_template.php';
+        $tplFile = e_PLUGIN . 'sitedown_styles/templates/sitedown_styles_templates_template.php';
         if (!is_readable($tplFile)) {
             $ns->tablerender(
                 LAN_PLUGIN_SITEDOWN_STYLES_TEMPLATES,
@@ -526,7 +526,7 @@ class sitedown_styles_ui extends e_admin_ui
      *     Selected language comes from ?lang=… (defaults to current e_LANGUAGE).
      *   • Runtime resolver: see `sitedown_styles_sitedown::getTplCopy()`.
      *
-     * Markup lives in `templates/admin_copy_template.php`, styles in
+     * Markup lives in `templates/sitedown_styles_copy_template.php`, styles in
      * `css/admin_copy.css`.
      */
     public function copyPage()
@@ -641,7 +641,7 @@ class sitedown_styles_ui extends e_admin_ui
         }
 
         // --- Load template + CSS -------------------------------------------
-        $tplFile = e_PLUGIN . 'sitedown_styles/templates/admin_copy_template.php';
+        $tplFile = e_PLUGIN . 'sitedown_styles/templates/sitedown_styles_copy_template.php';
         if (!is_readable($tplFile)) {
             $ns->tablerender(
                 LAN_PLUGIN_SITEDOWN_STYLES_COPY,

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<e107Plugin name="Sitedown Styles" lan="LAN_PLUGIN_SITEDOWN_STYLES_NAME" version="2.1.0" date="2026-05-11" compatibility="2.3" installRequired="true" >
+<e107Plugin name="Sitedown Styles" lan="LAN_PLUGIN_SITEDOWN_STYLES_NAME" version="2.2.0" date="2026-05-11" compatibility="2.3" installRequired="true" >
 	<author name="Kanonimpresor" url="https://marketingdeperformance.online" email="info@marketingdeperformance.online" />
 	<summary lan="LAN_PLUGIN_SITEDOWN_STYLES_SUMMARY">Professional maintenance page templates with multiple styles for different business niches.</summary>
 	<description lan="LAN_PLUGIN_SITEDOWN_STYLES_DESCRIPTION">A comprehensive collection of 8 professionally designed maintenance page templates built with Bootstrap 5.</description>
