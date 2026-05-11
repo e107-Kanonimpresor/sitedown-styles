@@ -873,22 +873,31 @@ class sitedown_styles_ui extends e_admin_ui
     /**
      * User Guide Page (in-admin documentation, native e107 tabs).
      *
-     * Architecture (mirrors the canonical e107 pattern, see `booking` plugin):
-     *   - Template:   templates/sitedown_styles_guide_template.php
-     *                 (HTML chunks per tab, with {SSG_*} / {TOK_*} placeholders)
-     *   - Shortcodes: shortcodes/batch/sitedown_styles_guide_shortcodes.php
-     *                 (i18n resolution via defset() with English fallback)
-     *   - Tabs UI:    e107::getForm()->tabs() — outputs BS3/4/5-compatible markup
-     *   - Styling:    css/admin_guide.css
-     *   - Controller: this method — orchestrates loading + assembly only
+     * Architecture: 4-layer pattern documented in
+     *   docs/architecture/USER_GUIDE_PATTERN.md
      *
-     * Pattern documented in GUIA_DESARROLLO_PLUGINS_E107.md
-     * §"Patrón: Guía de Usuario integrada en Admin".
+     *   Layer 1 — Controller : this method (lazy-loads help LANs, orchestrates).
+     *   Layer 2 — Template   : templates/sitedown_styles_guide_template.php
+     *                          (HTML structure, references {LAN_PLUGIN_SS_HELP_*}
+     *                          and {SS_HELP_*} tokens).
+     *   Layer 3 — Languages  : languages/<Lang>/<Lang>_admin_help.php
+     *                          (LAZY-loaded; never paid for on other admin pages).
+     *   Layer 4 — Shortcodes : shortcodes/batch/sitedown_styles_guide_shortcodes.php
+     *                          (ONLY methods with real logic: dynamic data, state
+     *                          badges, paths, lists. NEVER LAN proxies.)
+     *
+     *   Tabs UI : e107::getForm()->tabs() — outputs BS3/4/5-compatible markup.
+     *   Styling : css/admin_guide.css.
      */
     public function guidePage()
     {
         $tp   = e107::getParser();
         $frm  = e107::getForm();
+
+        // LAZY-load the Help language file (only when the Guide tab is opened).
+        // Resolves to: languages/<CurrentAdminLanguage>/<Lang>_admin_help.php
+        // See docs/architecture/USER_GUIDE_PATTERN.md for rationale.
+        e107::lan('sitedown_styles', 'admin_help', true);
 
         // Register admin CSS in <head> via e107 native API.
         // Pattern mirrors `booking` plugin: e107::css('<plugin_folder>', 'css/<file>').
@@ -901,23 +910,40 @@ class sitedown_styles_ui extends e_admin_ui
 
         // Tab definitions: id => array(LAN_KEY, fallback, fa-icon)
         $tabs = array(
-            'overview'      => array('LAN_PLUGIN_SITEDOWN_STYLES_GUIDE_TAB_OVERVIEW',     'Overview',        'fa-info-circle'),
-            'install'       => array('LAN_PLUGIN_SITEDOWN_STYLES_GUIDE_TAB_INSTALL',      'Install',         'fa-download'),
-            'configuration' => array('LAN_PLUGIN_SITEDOWN_STYLES_GUIDE_TAB_CONFIG',       'Configuration',   'fa-cog'),
-            'activation'    => array('LAN_PLUGIN_SITEDOWN_STYLES_GUIDE_TAB_ACTIVATION',   'Activation',      'fa-power-off'),
-            'shortcodes'    => array('LAN_PLUGIN_SITEDOWN_STYLES_GUIDE_TAB_SHORTCODES',   'Placeholders',    'fa-code'),
-            'troubleshoot'  => array('LAN_PLUGIN_SITEDOWN_STYLES_GUIDE_TAB_TROUBLESHOOT', 'Troubleshooting', 'fa-wrench'),
-            'credits'       => array('LAN_PLUGIN_SITEDOWN_STYLES_GUIDE_TAB_CREDITS',      'Credits',         'fa-heart'),
+            'overview'      => array('LAN_PLUGIN_SS_HELP_TAB_OVERVIEW',     'Overview',        'fa-info-circle'),
+            'install'       => array('LAN_PLUGIN_SS_HELP_TAB_INSTALL',      'Install',         'fa-download'),
+            'configuration' => array('LAN_PLUGIN_SS_HELP_TAB_CONFIG',       'Configuration',   'fa-cog'),
+            'activation'    => array('LAN_PLUGIN_SS_HELP_TAB_ACTIVATION',   'Activation',      'fa-power-off'),
+            'shortcodes'    => array('LAN_PLUGIN_SS_HELP_TAB_SHORTCODES',   'Placeholders',    'fa-code'),
+            'troubleshoot'  => array('LAN_PLUGIN_SS_HELP_TAB_TROUBLESHOOT', 'Troubleshooting', 'fa-wrench'),
+            'credits'       => array('LAN_PLUGIN_SS_HELP_TAB_CREDITS',      'Credits',         'fa-heart'),
         );
 
         // Build $frm->tabs() data: each entry needs 'caption' and 'text'.
+        //
+        // NOTE on {LAN_PLUGIN_SS_HELP_*} resolution:
+        //   e107's parseTemplate() does NOT auto-resolve {LAN_*} tokens (it only
+        //   runs them through the shortcode dispatcher, which would silently drop
+        //   them). The canonical e107 pattern is to concatenate LAN constants
+        //   in PHP (`'... '.LAN_FOO.' ...'`), but that would force us to inline
+        //   raw HTML into language files — exactly what Layer 3 of our
+        //   architecture forbids (see USER_GUIDE_PATTERN.md).
+        //
+        //   The clean fix is a tiny pre-pass: scan each chunk for
+        //   {LAN_PLUGIN_SS_HELP_*} tokens and replace each one with its
+        //   defset() value BEFORE handing off to parseTemplate. Shortcodes
+        //   ({TOK_*}, {SS_HELP_*}) keep flowing through the parser as usual.
         $tabData = array();
         foreach ($tabs as $id => $tab) {
-            $label   = defset($tab[0], $tab[1]);
-            $icon    = '<i class="fa ' . $tab[2] . '"></i> ';
-            $content = !empty($template[$id])
-                     ? $tp->parseTemplate($template[$id], true, $sc)
-                     : '<div class="alert alert-warning">Template chunk missing: ' . $id . '</div>';
+            $label = defset($tab[0], $tab[1]);
+            $icon  = '<i class="fa ' . $tab[2] . '"></i> ';
+
+            if (!empty($template[$id])) {
+                $chunk   = $this->_resolveHelpLans($template[$id]);
+                $content = $tp->parseTemplate($chunk, true, $sc);
+            } else {
+                $content = '<div class="alert alert-warning">Template chunk missing: ' . $id . '</div>';
+            }
 
             $tabData[$id] = array(
                 'caption' => $icon . $label,
@@ -932,6 +958,36 @@ class sitedown_styles_ui extends e_admin_ui
         return '<div class="sitedown-styles-guide">'
              . $frm->tabs($tabData)
              . '</div>';
+    }
+
+    /**
+     * Resolve {LAN_PLUGIN_SS_HELP_*} tokens to their constant values.
+     *
+     * Bridges the gap between e107's parseTemplate() (which only resolves
+     * shortcodes) and our Layer-3 design where translations live as PHP
+     * constants in <Lang>_admin_help.php.
+     *
+     * Why a regex pre-pass instead of concatenated strings in the template?
+     *   - Keeps the template a single readable HTML blob (Layer 2 contract).
+     *   - Avoids polluting the LAN file with raw HTML (Layer 3 contract).
+     *   - Cost is negligible: one preg_replace_callback per tab, only when
+     *     the user opens the User Guide page.
+     *
+     * Tokens for missing constants are left intact so they show up loudly
+     * during development instead of silently disappearing.
+     *
+     * @param  string $html  Template chunk straight from getTemplate().
+     * @return string        Same chunk with LAN tokens substituted.
+     */
+    private function _resolveHelpLans($html)
+    {
+        return preg_replace_callback(
+            '/\{(LAN_PLUGIN_SS_HELP_[A-Z0-9_]+)\}/',
+            static function ($m) {
+                return defined($m[1]) ? constant($m[1]) : $m[0];
+            },
+            $html
+        );
     }
 
     /**

@@ -6,6 +6,40 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 
 ---
 
+## [2.1.0] — 2026-05-11
+
+Internal refactor of the in-admin **User Guide** to a clean 4-layer architecture.
+Pure refactor: zero behavioural change for end users — existing settings, templates,
+preview and rendering paths are untouched.
+
+### Added
+
+- **`docs/architecture/USER_GUIDE_PATTERN.md`** — full design document for the 4-layer pattern (Controller → Template → `<Lang>_admin_help.php` → Shortcode batch with logic only). Reusable as a proposal for e107 core (Phase B).
+- **`languages/<Lang>/<Lang>_admin_help.php`** in EN, ES, PT — new convention modeled after the existing `<Lang>_admin.php` / `<Lang>_log.php` pattern. **Lazy-loaded** by `guidePage()`, so the cost is paid only when the user opens the Guide tab.
+- **Live state badge** in the *Install* tab (`{SS_HELP_STUB_STATUS}`) — green when the theme integration stub is detected, red otherwise. Real example of "shortcode that exists because it has logic, not as a LAN proxy".
+- **Dynamic shortcodes** with real responsibilities: `{SS_HELP_VERSION}`, `{SS_HELP_ACTIVE_THEME}`, `{SS_HELP_DETECTED_TEMPLATES}`.
+- **Controller pre-pass** `_resolveHelpLans()` in `admin_config.php` that substitutes `{LAN_PLUGIN_SS_HELP_*}` tokens via `defined()` / `constant()` before the template reaches `parseTemplate()`. Keeps the template a single readable HTML blob and the LAN files free of markup.
+
+### Changed
+
+- **`shortcodes/batch/sitedown_styles_guide_shortcodes.php`** trimmed from 263 → 129 lines (−51%). 60+ proxy methods (each one a `return defset('LAN_…')`) deleted; only 4 methods with real runtime logic remain, plus 17 `sc_tok_*` literal-token escapers used inside the placeholder-reference table.
+- **`languages/<Lang>/<Lang>_admin.php`** in EN, ES, PT trimmed from 442 → 246 lines (−44%). The 146 Guide-only LAN constants migrated out into the new `<Lang>_admin_help.php` files.
+- **`admin_config.php::guidePage()`** now lazy-loads the help language pack and uses the new `LAN_PLUGIN_SS_HELP_TAB_*` constants for tab captions.
+- **`templates/sitedown_styles_guide_template.php`** restructured to reference `{LAN_PLUGIN_SS_HELP_*}` directly (resolved by the controller pre-pass) and `{SS_HELP_*}` only for dynamic data. Two pre-existing template/LAN mismatches fixed in passing.
+
+### Naming convention
+
+- Help LAN constants: `LAN_PLUGIN_SS_HELP_<SECTION>_<KEY>` (replaces the legacy `LAN_PLUGIN_SITEDOWN_STYLES_GUIDE_*`).
+- Help shortcode tokens: `{SS_HELP_*}` — **reserved exclusively for dynamic logic**.
+
+### Verification
+
+- Cross-language parity: EN ≡ ES ≡ PT (146 + 4 LANs each, verified by `diff` exit 0).
+- All 6 modified PHP files pass `php -l`.
+- End-to-end runtime test: 0 missing constants, 0 raw `LAN_*` tokens leaking into the rendered output.
+
+---
+
 ## [2.0.0] — 2026-05-04
 
 Major architectural rewrite. Single master template + per-skin CSS files.
