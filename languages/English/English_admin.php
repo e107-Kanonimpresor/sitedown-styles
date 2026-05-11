@@ -231,21 +231,8 @@ define('LAN_PLUGIN_SITEDOWN_STYLES_BTN_DOCS',               'Documentation');
 define('LAN_PLUGIN_SITEDOWN_STYLES_BTN_SUPPORT',            'Support');
 define('LAN_PLUGIN_SITEDOWN_STYLES_BTN_DONATE',             'Donate');
 
-// About page sections
-define('LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_RELEASED',         'Released');
-define('LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_RELEASED_UNDER',   'Released under');
-define('LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_METADATA',         'Plugin information');
-define('LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_AUTHOR',           'Author');
-define('LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_AGENCY',           'Agency / Website');
-define('LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_CONTACT',          'Contact email');
-define('LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_LICENSE',          'License');
-define('LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_DESCRIPTION',      'Description');
-define('LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_CHANGELOG_HINT',   'See full version history in');
-define('LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_SUPPORT',          'Help, support & contributions');
-define('LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_SUPPORT_INTRO',    'This plugin is free and open-source. Use the buttons below to read the docs, report a bug, browse the source on GitHub, or support the project with a donation.');
-
-// About page action buttons
-define('LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_BTN_BUG',          'Report a bug');
-define('LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_BTN_REPO',         'GitHub repository');
-define('LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_BTN_CHANGELOG',    'Changelog');
-define('LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_BTN_REVIEW',       'Leave a review');
+// About page sections — MIGRATED to languages/<Lang>/<Lang>_admin_about.php
+// (4-layer pattern, lazy-loaded by aboutPage()). The constants previously
+// defined here (LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_*) are no longer referenced
+// by any code in this plugin and have been removed. See
+// docs/architecture/USER_GUIDE_PATTERN.md for the rationale.

@@ -232,21 +232,8 @@ define('LAN_PLUGIN_SITEDOWN_STYLES_BTN_DOCS',               'Documentação');
 define('LAN_PLUGIN_SITEDOWN_STYLES_BTN_SUPPORT',            'Suporte');
 define('LAN_PLUGIN_SITEDOWN_STYLES_BTN_DONATE',             'Donativo');
 
-// Secções da página Acerca de
-define('LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_RELEASED',         'Publicado');
-define('LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_RELEASED_UNDER',   'Publicado sob');
-define('LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_METADATA',         'Informação do plugin');
-define('LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_AUTHOR',           'Autor');
-define('LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_AGENCY',           'Agência / Site');
-define('LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_CONTACT',          'Email de contacto');
-define('LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_LICENSE',          'Licença');
-define('LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_DESCRIPTION',      'Descrição');
-define('LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_CHANGELOG_HINT',   'Ver histórico completo de versões em');
-define('LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_SUPPORT',          'Ajuda, suporte e contribuições');
-define('LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_SUPPORT_INTRO',    'Este plugin é livre e de código aberto. Use os botões abaixo para ler a documentação, reportar um bug, navegar pelo código no GitHub ou apoiar o projecto com um donativo.');
-
-// Botões de acção da página Acerca de
-define('LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_BTN_BUG',          'Reportar bug');
-define('LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_BTN_REPO',         'Repositório GitHub');
-define('LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_BTN_CHANGELOG',    'Changelog');
-define('LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_BTN_REVIEW',       'Deixar avaliação');
+// Secções da página Acerca de — MIGRADAS para
+// languages/<Lang>/<Lang>_admin_about.php (padrão 4 camadas, carga preguiçosa
+// a partir de aboutPage()). As constantes LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_*
+// que estavam aqui já não são referenciadas por nenhum código do plugin
+// e foram removidas. Ver docs/architecture/USER_GUIDE_PATTERN.md.

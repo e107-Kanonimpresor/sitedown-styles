@@ -7,10 +7,11 @@
  *
  *   - One $SITEDOWN_STYLES_GUIDE_TEMPLATE key per tab (overview, install, …).
  *   - {LAN_PLUGIN_SS_HELP_*} tokens are resolved by guidePage()'s pre-pass
- *     `_resolveHelpLans()` BEFORE the chunk reaches parseTemplate(). The
- *     constants themselves live in languages/<Lang>/<Lang>_admin_help.php
- *     and are lazy-loaded by guidePage(). (parseTemplate() in core does NOT
- *     auto-resolve LAN tokens — it only dispatches shortcodes.)
+ *     `_resolveLans($html, 'LAN_PLUGIN_SS_HELP_')` BEFORE the chunk reaches
+ *     parseTemplate(). The constants themselves live in
+ *     languages/<Lang>/<Lang>_admin_help.php and are lazy-loaded by guidePage().
+ *     (parseTemplate() in core does NOT auto-resolve LAN tokens — it only
+ *     dispatches shortcodes.)
  *   - {SS_HELP_*} tokens come from the shortcode batch
  *     plugin_sitedown_styles_sitedown_styles_guide_shortcodes
  *     and are reserved for DYNAMIC data (paths, version, state badges, …).

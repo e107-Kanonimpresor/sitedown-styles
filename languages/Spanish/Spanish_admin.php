@@ -231,21 +231,8 @@ define('LAN_PLUGIN_SITEDOWN_STYLES_BTN_DOCS',               'Documentación');
 define('LAN_PLUGIN_SITEDOWN_STYLES_BTN_SUPPORT',            'Soporte');
 define('LAN_PLUGIN_SITEDOWN_STYLES_BTN_DONATE',             'Donar');
 
-// Secciones de la página Acerca de
-define('LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_RELEASED',         'Publicado');
-define('LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_RELEASED_UNDER',   'Publicado bajo');
-define('LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_METADATA',         'Información del plugin');
-define('LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_AUTHOR',           'Autor');
-define('LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_AGENCY',           'Agencia / Sitio web');
-define('LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_CONTACT',          'Email de contacto');
-define('LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_LICENSE',          'Licencia');
-define('LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_DESCRIPTION',      'Descripción');
-define('LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_CHANGELOG_HINT',   'Ver historial completo de versiones en');
-define('LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_SUPPORT',          'Ayuda, soporte y contribuciones');
-define('LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_SUPPORT_INTRO',    'Este plugin es libre y de código abierto. Usa los botones de abajo para leer la documentación, reportar un bug, navegar por el código en GitHub o apoyar el proyecto con una donación.');
-
-// Botones de acción de la página Acerca de
-define('LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_BTN_BUG',          'Reportar un bug');
-define('LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_BTN_REPO',         'Repositorio GitHub');
-define('LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_BTN_CHANGELOG',    'Changelog');
-define('LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_BTN_REVIEW',       'Dejar reseña');
+// Secciones de la página Acerca de — MIGRADAS a
+// languages/<Lang>/<Lang>_admin_about.php (patrón 4 capas, carga perezosa
+// desde aboutPage()). Las constantes LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_*
+// que estaban aquí ya no son referenciadas por ningún código del plugin
+// y se han eliminado. Ver docs/architecture/USER_GUIDE_PATTERN.md.

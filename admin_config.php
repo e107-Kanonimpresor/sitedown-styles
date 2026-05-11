@@ -251,101 +251,57 @@ class sitedown_styles_ui extends e_admin_ui
     /**
      * About Page — full plugin identity card.
      *
-     * Concerns are split (mirrors templatesPage / copyPage convention):
-     *   • Logic (this method): assembles data → str_replace → returns HTML.
-     *   • Markup: `templates/admin_about_template.php` provides the HTML chunks.
-     *   • Styles: NONE — relies entirely on e107 admin theme (Bootstrap 3 + FA).
+     * Architecture: 4-layer pattern documented in
+     *   docs/architecture/USER_GUIDE_PATTERN.md
+     *
+     *   Layer 1 — Controller : this method (lazy-loads About LANs, orchestrates).
+     *   Layer 2 — Template   : templates/sitedown_styles_about_template.php
+     *                          (HTML structure, references {LAN_PLUGIN_SS_ABOUT_*}
+     *                          and {SS_ABOUT_*} tokens).
+     *   Layer 3 — Languages  : languages/<Lang>/<Lang>_admin_about.php
+     *                          (LAZY-loaded; never paid for on other admin pages).
+     *   Layer 4 — Shortcodes : shortcodes/batch/sitedown_styles_about_shortcodes.php
+     *                          (dynamic plugin metadata + button bar + year).
+     *
+     * Plugin identity data flows from the canonical source `getPluginInfo()`
+     * into the shortcode batch via `setVars()` — so the sidebar widget
+     * (renderHelp) and the About page stay in sync automatically.
      *
      * @return string HTML returned to the admin dispatcher (auto-wrapped in panel)
      */
     public function aboutPage()
     {
-        $info = $this->getPluginInfo();
-        $esc  = function ($s) { return htmlspecialchars((string) $s, ENT_QUOTES, 'UTF-8'); };
+        $tp = e107::getParser();
 
-        // --- Load template chunks -------------------------------------------
-        $tplFile = e_PLUGIN . 'sitedown_styles/templates/admin_about_template.php';
-        if (!is_readable($tplFile)) {
-            return '<div class="alert alert-danger">Missing template: ' . $esc($tplFile) . '</div>';
+        // LAZY-load the About language file (only when the About tab is opened).
+        // Resolves to: languages/<CurrentAdminLanguage>/<Lang>_admin_about.php
+        // See docs/architecture/USER_GUIDE_PATTERN.md for rationale.
+        e107::lan('sitedown_styles', 'admin_about', true);
+
+        // Load template chunk + shortcode batch.
+        $template = e107::getTemplate('sitedown_styles', 'sitedown_styles_about');
+        $sc       = e107::getScBatch('sitedown_styles_about', 'sitedown_styles');
+
+        // Inject the canonical plugin metadata into the shortcode batch.
+        // Shortcodes read it via $this->var[<key>] (standard e_shortcode API).
+        $sc->setVars($this->getPluginInfo());
+
+        if (empty($template['body'])) {
+            return '<div class="alert alert-danger">Missing About template chunk: '
+                 . htmlspecialchars(e_PLUGIN . 'sitedown_styles/templates/sitedown_styles_about_template.php', ENT_QUOTES, 'UTF-8')
+                 . '</div>';
         }
-        include $tplFile;
-        // Defines: $ADMIN_ABOUT_HEADER, $ADMIN_ABOUT_METADATA,
-        // $ADMIN_ABOUT_META_ROW, $ADMIN_ABOUT_DESCRIPTION,
-        // $ADMIN_ABOUT_SUPPORT, $ADMIN_ABOUT_BUTTON, $ADMIN_ABOUT_FOOTER.
 
-        // --- 1. Header card -------------------------------------------------
-        $header = strtr($ADMIN_ABOUT_HEADER, array(
-            '{NAME}'         => $esc($info['name']),
-            '{VERSION}'      => $esc($info['version']),
-            '{SUMMARY}'      => LAN_PLUGIN_SITEDOWN_STYLES_SUMMARY,
-            '{LBL_RELEASED}' => LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_RELEASED,
-            '{RELEASED}'     => $esc($info['released']),
-            '{COMPAT}'       => $esc($info['compat']),
-        ));
+        // Pre-pass: resolve {LAN_PLUGIN_SS_ABOUT_*} tokens (parseTemplate does
+        // not auto-resolve LAN tokens — it only dispatches shortcodes).
+        $html = $this->_resolveLans($template['body'], 'LAN_PLUGIN_SS_ABOUT_');
 
-        // --- 2. Metadata grid (2 columns) -----------------------------------
-        $metaRows = array(
-            array('fa-user',          LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_AUTHOR,  $esc($info['author'])),
-            array('fa-building',      LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_AGENCY,  '<a href="' . $esc($info['website']) . '" target="_blank" rel="noopener">' . $esc($info['agency']) . '</a>'),
-            array('fa-envelope',      LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_CONTACT, '<a href="mailto:' . $esc($info['email']) . '">' . $esc($info['email']) . '</a>'),
-            array('fa-balance-scale', LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_LICENSE, '<a href="' . $esc($info['license_url']) . '" target="_blank" rel="noopener">' . $esc($info['license']) . '</a>'),
-        );
-        $metaHtml = '';
-        foreach ($metaRows as $row) {
-            $metaHtml .= strtr($ADMIN_ABOUT_META_ROW, array(
-                '{ICON}'  => $row[0],
-                '{LABEL}' => $row[1],
-                '{VALUE}' => $row[2],
-            ));
-        }
-        $metadata = strtr($ADMIN_ABOUT_METADATA, array(
-            '{LBL_METADATA}' => LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_METADATA,
-            '{META_ROWS}'    => $metaHtml,
-        ));
-
-        // --- 3. Description card --------------------------------------------
-        $description = strtr($ADMIN_ABOUT_DESCRIPTION, array(
-            '{LBL_DESCRIPTION}'    => LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_DESCRIPTION,
-            '{DESCRIPTION}'        => LAN_PLUGIN_SITEDOWN_STYLES_DESCRIPTION,
-            '{LBL_CHANGELOG_HINT}' => LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_CHANGELOG_HINT,
-            '{CHANGELOG_URL}'      => $esc($info['changelog']),
-        ));
-
-        // --- 4. Support button bar ------------------------------------------
-        // Use BS3 button styles: btn-info, btn-warning, btn-default, btn-success, btn-primary
-        $buttons = array(
-            array($info['docs'],      'fa-book',         'btn-info',    LAN_PLUGIN_SITEDOWN_STYLES_BTN_DOCS),
-            array($info['support'],   'fa-bug',          'btn-warning', LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_BTN_BUG),
-            array($info['repo'],      'fa-github',       'btn-default', LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_BTN_REPO),
-            array($info['changelog'], 'fa-list-alt',     'btn-default', LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_BTN_CHANGELOG),
-            array($info['donate'],    'fa-heart',        'btn-success', LAN_PLUGIN_SITEDOWN_STYLES_BTN_DONATE),
-            array($info['review'],    'fa-star',         'btn-primary', LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_BTN_REVIEW),
-        );
-        $btnHtml = '';
-        foreach ($buttons as $b) {
-            $btnHtml .= strtr($ADMIN_ABOUT_BUTTON, array(
-                '{URL}'   => $esc($b[0]),
-                '{ICON}'  => $b[1],
-                '{CLASS}' => $b[2],
-                '{LABEL}' => $b[3],
-            ));
-        }
-        $support = strtr($ADMIN_ABOUT_SUPPORT, array(
-            '{LBL_SUPPORT}'   => LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_SUPPORT,
-            '{SUPPORT_INTRO}' => LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_SUPPORT_INTRO,
-            '{BUTTONS}'       => $btnHtml,
-        ));
-
-        // --- 5. Footer ------------------------------------------------------
-        $footer = strtr($ADMIN_ABOUT_FOOTER, array(
-            '{YEAR}'              => date('Y'),
-            '{AGENCY}'            => $esc($info['agency']),
-            '{LBL_RELEASED_UNDER}'=> LAN_PLUGIN_SITEDOWN_STYLES_ABOUT_RELEASED_UNDER,
-            '{LICENSE_URL}'       => $esc($info['license_url']),
-            '{LICENSE}'           => $esc($info['license']),
-        ));
-
-        return $header . $metadata . $description . $support . $footer;
+        // Hand off to parseTemplate so {SS_ABOUT_*} shortcodes get resolved.
+        // We RETURN the HTML directly; the e107 admin dispatcher wraps custom-
+        // page output in its own panel automatically.
+        return '<div class="sitedown-styles-about">'
+             . $tp->parseTemplate($html, true, $sc)
+             . '</div>';
     }
 
     /**
@@ -939,7 +895,7 @@ class sitedown_styles_ui extends e_admin_ui
             $icon  = '<i class="fa ' . $tab[2] . '"></i> ';
 
             if (!empty($template[$id])) {
-                $chunk   = $this->_resolveHelpLans($template[$id]);
+                $chunk   = $this->_resolveLans($template[$id], 'LAN_PLUGIN_SS_HELP_');
                 $content = $tp->parseTemplate($chunk, true, $sc);
             } else {
                 $content = '<div class="alert alert-warning">Template chunk missing: ' . $id . '</div>';
@@ -961,28 +917,33 @@ class sitedown_styles_ui extends e_admin_ui
     }
 
     /**
-     * Resolve {LAN_PLUGIN_SS_HELP_*} tokens to their constant values.
+     * Resolve {LAN_<PREFIX>*} tokens to their constant values.
      *
      * Bridges the gap between e107's parseTemplate() (which only resolves
      * shortcodes) and our Layer-3 design where translations live as PHP
-     * constants in <Lang>_admin_help.php.
+     * constants in dedicated, lazy-loaded language files
+     * (e.g. <Lang>_admin_help.php, <Lang>_admin_about.php).
      *
      * Why a regex pre-pass instead of concatenated strings in the template?
      *   - Keeps the template a single readable HTML blob (Layer 2 contract).
      *   - Avoids polluting the LAN file with raw HTML (Layer 3 contract).
-     *   - Cost is negligible: one preg_replace_callback per tab, only when
-     *     the user opens the User Guide page.
+     *   - Cost is negligible: one preg_replace_callback per chunk, only when
+     *     the corresponding admin page is opened.
      *
      * Tokens for missing constants are left intact so they show up loudly
      * during development instead of silently disappearing.
      *
-     * @param  string $html  Template chunk straight from getTemplate().
-     * @return string        Same chunk with LAN tokens substituted.
+     * @param  string $html    Template chunk straight from getTemplate().
+     * @param  string $prefix  Constant prefix to match (e.g. 'LAN_PLUGIN_SS_HELP_').
+     * @return string          Same chunk with matching LAN tokens substituted.
      */
-    private function _resolveHelpLans($html)
+    private function _resolveLans($html, $prefix)
     {
+        // Build a safe regex from the prefix; restrict to upper-case ident chars.
+        $pattern = '/\{(' . preg_quote($prefix, '/') . '[A-Z0-9_]+)\}/';
+
         return preg_replace_callback(
-            '/\{(LAN_PLUGIN_SS_HELP_[A-Z0-9_]+)\}/',
+            $pattern,
             static function ($m) {
                 return defined($m[1]) ? constant($m[1]) : $m[0];
             },
