@@ -15,7 +15,7 @@
  * About page applies the same 4-layer pattern as the User Guide page).
  *
  * @package     sitedown_styles
- * @version     2.2.0
+ * @version     2.1.0
  */
 
 // ─────────────────────────────────────────────────────────────────────────────

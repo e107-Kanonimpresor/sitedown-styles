@@ -170,16 +170,26 @@ class sitedown_styles_ui extends e_admin_ui
      *   - renderHelp() → side panel widget on every admin page
      *   - aboutPage()  → full "About" page (dedicated tab)
      *
-     * Update this once and both surfaces stay in sync.
+     * `version` and `released` are read DYNAMICALLY from plugin.xml so a
+     * release bump only touches plugin.xml + CHANGELOG.md (single source of
+     * truth for version metadata across the entire plugin). All other
+     * fields are static identity / contact / URL data.
      *
      * @return array
      */
     private function getPluginInfo()
     {
+        // Pull version + release date from plugin.xml (single source of truth).
+        // getMeta() returns the parsed <e107Plugin ...> attributes.
+        $meta    = e107::getPlug()->load('sitedown_styles')->getMeta();
+        $attrs   = is_array($meta) && !empty($meta['@attributes']) ? $meta['@attributes'] : array();
+        $version = !empty($attrs['version']) ? (string) $attrs['version'] : '?';
+        $date    = !empty($attrs['date'])    ? (string) $attrs['date']    : '';
+
         return array(
             'name'       => 'Sitedown Styles',
-            'version'    => '2.0.0',
-            'released'   => '2026-05-10',
+            'version'    => $version,
+            'released'   => $date,
             'author'     => 'Kanonimpresor',
             'agency'     => 'Marketing de Performance',
             'website'    => 'https://marketingdeperformance.online',

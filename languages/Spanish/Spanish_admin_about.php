@@ -14,7 +14,7 @@
  * Ver docs/architecture/USER_GUIDE_PATTERN.md para el detalle del patrón.
  *
  * @package     sitedown_styles
- * @version     2.2.0
+ * @version     2.1.0
  */
 
 // ─────────────────────────────────────────────────────────────────────────────
